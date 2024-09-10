@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    {
+      "column": 115,
+      "color": "#fff"
+    }
+  ],
+  "cSpell.words": ["altaltium", "clsx", "lucide", "tailwindcss", "tanstack"]
+}

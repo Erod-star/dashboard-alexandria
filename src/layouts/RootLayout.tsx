@@ -8,7 +8,7 @@ export default function RootLayout() {
     <div>
       <Navbar />
 
-      <main className="h-[calc(100vh-82px)] p-6">
+      <main className="h-[calc(100vh-82px)] py-6 px-10">
         <Outlet />
       </main>
     </div>
