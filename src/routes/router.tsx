@@ -12,7 +12,10 @@ import RootLayout from '@/layouts/RootLayout';
 
 // ? Views
 import UsersView from '@/modules/users/views/UsersView';
+
 import InventoryView from '@/modules/inventory/views/InventoryView';
+import CreateInventoryView from '@/modules/inventory/views/CreateInventoryView';
+
 import { NotFound } from '@/modules/global/views/NotFound';
 
 export const router = createBrowserRouter(
@@ -22,6 +25,7 @@ export const router = createBrowserRouter(
 
       <Route path="inventario">
         <Route index element={<InventoryView />} />
+        <Route path="nuevo" element={<CreateInventoryView />} />
       </Route>
 
       <Route path="usuarios">

@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 // ? Components
 import { Button } from '@/components';
 import {
@@ -7,6 +9,8 @@ import {
 } from '@/modules/inventory/components';
 
 function InventoryView() {
+  const navigate = useNavigate();
+
   const data: Property[] = [
     {
       id: 'p1',
@@ -236,7 +240,10 @@ function InventoryView() {
       <section className="mb-5 flex justify-between">
         <h2 className="text-4xl font-bold">Inventario</h2>
 
-        <Button onClick={() => console.log('::TODO: Add modal!')}>
+        <Button
+          className="text-base font-semibold"
+          onClick={() => navigate('/inventario/nuevo')}
+        >
           + Propiedad
         </Button>
       </section>

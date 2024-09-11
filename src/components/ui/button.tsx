@@ -20,6 +20,8 @@ const buttonVariants = cva(
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-alt-green-300 hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
+        dashed:
+          'border border-dashed border-alt-green-300 bg-transparent hover:bg-transparent/60',
       },
       size: {
         default: 'h-10 px-4 py-2',
