@@ -6,5 +6,14 @@
       "color": "#fff"
     }
   ],
-  "cSpell.words": ["altaltium", "clsx", "lucide", "tailwindcss", "tanstack"]
+  "cSpell.words": [
+    "altaltium",
+    "clsx",
+    "inventario",
+    "lucide",
+    "Propiedad",
+    "tailwindcss",
+    "tanstack",
+    "usuarios"
+  ]
 }
