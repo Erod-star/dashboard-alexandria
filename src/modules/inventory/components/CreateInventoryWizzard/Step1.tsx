@@ -123,7 +123,12 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
               <FormItem className="w-2/5">
                 <FormLabel>Código postal</FormLabel>
                 <FormControl>
-                  <Input placeholder="12345" {...field} />
+                  <Input
+                    placeholder="12345"
+                    minLength={5}
+                    maxLength={5}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -139,7 +144,11 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
               <FormItem className="w-2/3">
                 <FormLabel>Link Google Maps</FormLabel>
                 <FormControl>
-                  <Input placeholder="https://maps.app.goo.gl" {...field} />
+                  <Input
+                    placeholder="https://maps.app.goo.gl"
+                    type="url"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

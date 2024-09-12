@@ -24,7 +24,7 @@ export const CreateInventoryWizzard = () => {
       setTitle('Ingresa la dirección de la propiedad');
     } else if (step === 2) {
       setProgress(66);
-      setTitle('Ingresa la información de la propiedad');
+      setTitle('Ingresa los detalles de la propiedad');
     }
   }, [step]);
 

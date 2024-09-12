@@ -16,10 +16,8 @@ const CreateInventoryView = () => {
       {isStartingManualCreation ? (
         <CreateInventoryWizzard />
       ) : (
-        <div className="w-full h-full flex-center flex-col relative">
-          <h2 className="text-4xl font-semibold mb-5 absolute top-12">
-            Agregar propiedad 🏚️
-          </h2>
+        <div className="w-full h-full flex-center flex-col">
+          <h2 className="text-4xl font-semibold mb-20">🏚️ Agregar propiedad</h2>
 
           <section className="space-y-3 flex flex-col mb-10">
             <h3 className="text-2xl text-center mb-3">

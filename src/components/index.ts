@@ -1,5 +1,6 @@
 export * from './custom/Navbar';
 export * from './custom/SearchInput';
+export * from './custom/TabNumbers';
 export * from './ui/avatar';
 export * from './ui/badge';
 export * from './ui/button';
@@ -8,5 +9,9 @@ export * from './ui/form';
 export * from './ui/input';
 export * from './ui/label';
 export * from './ui/progress';
+export * from './ui/radio-group';
+export * from './ui/select';
 export * from './ui/separator';
 export * from './ui/table';
+export * from './ui/toggle-group';
+export * from './ui/toggle';
