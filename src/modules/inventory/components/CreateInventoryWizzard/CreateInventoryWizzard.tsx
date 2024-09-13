@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Progress } from '@/components';
 import { Step1 } from './Step1';
 import { Step2 } from './Step2';
+import { Step3 } from './Step3';
 
 export const CreateInventoryWizzard = () => {
   const [step, setStep] = useState(1);
@@ -20,16 +21,22 @@ export const CreateInventoryWizzard = () => {
 
   useEffect(() => {
     if (step === 1) {
-      setProgress(33);
+      setProgress(20);
       setTitle('Ingresa la dirección de la propiedad');
     } else if (step === 2) {
-      setProgress(66);
+      setProgress(45);
       setTitle('Ingresa los detalles de la propiedad');
+    } else if (step === 3) {
+      setProgress(75);
+      setTitle('Ingresa los detalles del pago');
+    } else if (step === 4) {
+      setProgress(95);
+      setTitle('Antes de concluir por favor revisa los datos');
     }
   }, [step]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setProgress(33), 500);
+    const timer = setTimeout(() => setProgress(20), 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -51,6 +58,12 @@ export const CreateInventoryWizzard = () => {
         {step === 1 && <Step1 onNextStep={handleNextStep} />}
         {step === 2 && (
           <Step2
+            onNextStep={handleNextStep}
+            onPreviousStep={handlePreviousStep}
+          />
+        )}
+        {step === 3 && (
+          <Step3
             onNextStep={handleNextStep}
             onPreviousStep={handlePreviousStep}
           />
