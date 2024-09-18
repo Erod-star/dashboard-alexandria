@@ -1,4 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { toast } from 'sonner';
 
 // ? Icons
 import { Mail, MoreHorizontal, Phone } from 'lucide-react';
@@ -46,16 +47,36 @@ export const usersColumns: ColumnDef<User>[] = [
         <>
           <p className="font-semibold text-2xl">{name}</p>
 
-          <div className="mt-2">
-            <div className="flex items-center gap-2 text-alt-green-300">
+          <div className="mt-1">
+            <Button
+              className="flex items-center gap-2 mt-2 text-alt-green-300 px-2 py-0"
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                navigator.clipboard.writeText(email);
+                toast.info('Correo copiado en el portapapeles', {
+                  duration: 1500,
+                });
+              }}
+            >
               <Mail className="size-3 inline-block" />
               <span className="text-sm">{email}</span>
-            </div>
+            </Button>
 
-            <div className="flex items-center gap-2 mt-1">
+            <Button
+              className="flex items-center gap-2 text-white px-2 py-0"
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                navigator.clipboard.writeText('312 133 5555');
+                toast.info('Telefono copiado en el portapapeles', {
+                  duration: 1500,
+                });
+              }}
+            >
               <Phone className="size-3 inline-block" />
               <span className="text-sm">312 133 5555</span>
-            </div>
+            </Button>
           </div>
         </>
       );

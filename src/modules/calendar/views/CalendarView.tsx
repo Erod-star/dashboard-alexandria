@@ -1,5 +1,10 @@
-import { Button } from '@/components';
+import { toast } from 'sonner';
+
+// ? Icons
 import { UserPlus } from 'lucide-react';
+
+// ? Components
+import { Button } from '@/components';
 
 function CalendarView() {
   return (
@@ -16,6 +21,15 @@ function CalendarView() {
           <Button
             className="flex gap-3 text-base font-semibold mt-3"
             variant="ghost"
+            onClick={() =>
+              toast('Event has been created', {
+                description: 'Sunday, December 03, 2023 at 9:00 AM',
+                action: {
+                  label: 'Undo',
+                  onClick: () => console.log('Undo'),
+                },
+              })
+            }
           >
             <UserPlus /> <p>Buscar personas</p>
           </Button>
