@@ -1,15 +1,14 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-// ? Compoents
+// ? Hooks
+import { useUsersForm } from '../hooks';
+
+// ? Components
 import {
-  Avatar,
-  AvatarImage,
   Button,
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,33 +16,18 @@ import {
   Input,
   Separator,
 } from '@/components';
-
-const formSchema = z.object({
-  firstName: z.string().min(2, {
-    message: 'El nombre debe tener al menos 2 caracteres.',
-  }),
-  lastName: z.string().min(2, {
-    message: 'El apellido debe tener al menos 2 caracteres.',
-  }),
-  phone: z.string().min(10, {
-    message: 'Porfavor ingresa un número de teléfono válido.',
-  }),
-  email: z.string().email({ message: 'Porfavor ingresa un correo válido.' }),
-});
+import { UserImageField } from '../components';
 
 const UsersFormView = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      firstName: '',
-    },
-  });
+  const { form, formSchema } = useUsersForm();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const navigate = useNavigate();
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-  }
+  };
 
   return (
     <div className="h-full relative">
@@ -55,11 +39,7 @@ const UsersFormView = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid grid-cols-3">
-              <div className="flex-center">
-                <Avatar className="size-72">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                </Avatar>
-              </div>
+              <UserImageField />
 
               <div className="col-span-2 space-y-5">
                 <div className="flex gap-5">
@@ -95,10 +75,10 @@ const UsersFormView = () => {
                 <div className="flex gap-5">
                   <FormField
                     control={form.control}
-                    name="firstName"
+                    name="phone"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Nombre(s)</FormLabel>
+                        <FormLabel>Teléfono</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -109,10 +89,10 @@ const UsersFormView = () => {
 
                   <FormField
                     control={form.control}
-                    name="lastName"
+                    name="email"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Apellidos</FormLabel>
+                        <FormLabel>Correo electrónico</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -122,13 +102,27 @@ const UsersFormView = () => {
                   />
                 </div>
 
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem className="w-2/3">
+                      <FormLabel>Rol</FormLabel>
+                      <FormControl>
+                        <Input placeholder="shadcn" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <div className="flex gap-5">
                   <FormField
                     control={form.control}
-                    name="firstName"
+                    name="propertiesHistory"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Nombre(s)</FormLabel>
+                        <FormLabel>Historial de propiedades</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -139,10 +133,10 @@ const UsersFormView = () => {
 
                   <FormField
                     control={form.control}
-                    name="lastName"
+                    name="property"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Apellidos</FormLabel>
+                        <FormLabel>Propiedad</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -162,10 +156,10 @@ const UsersFormView = () => {
                 <div className="flex gap-5">
                   <FormField
                     control={form.control}
-                    name="firstName"
+                    name="streetAndNumber"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Nombre(s)</FormLabel>
+                        <FormLabel>Calle y número</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -176,10 +170,10 @@ const UsersFormView = () => {
 
                   <FormField
                     control={form.control}
-                    name="lastName"
+                    name="colony"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Apellidos</FormLabel>
+                        <FormLabel>Colonia</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -192,10 +186,10 @@ const UsersFormView = () => {
                 <div className="flex gap-5">
                   <FormField
                     control={form.control}
-                    name="firstName"
+                    name="city"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Nombre(s)</FormLabel>
+                        <FormLabel>Alcaldia / Municipio</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -206,10 +200,10 @@ const UsersFormView = () => {
 
                   <FormField
                     control={form.control}
-                    name="lastName"
+                    name="zipCode"
                     render={({ field }) => (
                       <FormItem className="w-1/2">
-                        <FormLabel>Apellidos</FormLabel>
+                        <FormLabel>Código postal</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
@@ -221,8 +215,18 @@ const UsersFormView = () => {
               </div>
             </div>
 
-            <div className="absolute bottom-0 right-0">
-              <Button>Crear usuario</Button>
+            <div className="flex justify-end w-full">
+              <div className="flex gap-3">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => navigate('/usuarios')}
+                >
+                  Cancelar
+                </Button>
+
+                <Button type="submit">Crear usuario</Button>
+              </div>
             </div>
           </form>
         </Form>

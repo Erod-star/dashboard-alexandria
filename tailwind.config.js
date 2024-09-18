@@ -57,6 +57,7 @@ export default {
 
         // * Green
         'alt-green-300': '#AAFFE3',
+        'alt-green-400': '#82bfab',
         'alt-green-900': '#131D1F',
 
         // * Slate
