@@ -6,6 +6,9 @@ import { Mail, MoreHorizontal, Phone } from 'lucide-react';
 
 // ? Components
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -28,15 +31,18 @@ export const usersColumns: ColumnDef<User>[] = [
     id: 'profilePicture',
     accessorKey: 'profilePicture',
     header: '',
-    cell: ({ row }) => (
-      <div className="flex-center max-w-24">
-        <img
-          src={row.original.profilePicture}
-          alt={row.original.name}
-          className="rounded-full size-20 border-2 border-primary shadow-sm"
-        />
-      </div>
-    ),
+    minSize: 5000,
+    cell: ({ row }) => {
+      const { name, profilePicture } = row.original;
+      return (
+        <div className="flex-center">
+          <Avatar className="size-20 border-2 border-primary shadow-sm">
+            <AvatarImage src={profilePicture} alt={name} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </div>
+      );
+    },
   },
   {
     accessorKey: 'name',
@@ -49,9 +55,9 @@ export const usersColumns: ColumnDef<User>[] = [
 
           <div className="mt-1">
             <Button
-              className="flex items-center gap-2 mt-2 text-alt-green-300 px-2 py-0"
+              className="flex items-center gap-2 mt-2 text-alt-green-300 px-2 py-0 h-6"
               size="sm"
-              variant="ghost"
+              variant="link"
               onClick={() => {
                 navigator.clipboard.writeText(email);
                 toast.info('Correo copiado en el portapapeles', {
@@ -64,9 +70,9 @@ export const usersColumns: ColumnDef<User>[] = [
             </Button>
 
             <Button
-              className="flex items-center gap-2 text-white px-2 py-0"
+              className="flex items-center gap-2 text-white px-2 py-0 h-6"
               size="sm"
-              variant="ghost"
+              variant="link"
               onClick={() => {
                 navigator.clipboard.writeText('312 133 5555');
                 toast.info('Telefono copiado en el portapapeles', {
@@ -84,25 +90,35 @@ export const usersColumns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'department',
-    header: 'Departamento',
+    header: () => <div className="text-center"> Departamento </div>,
     cell: ({ row }) => (
-      <UserDepartmentBadge department={row.getValue('department')} />
+      <div className="w-full text-center">
+        <UserDepartmentBadge department={row.getValue('department')} />
+      </div>
     ),
   },
   {
     id: 'rewards',
-    header: 'Recompensas',
-    cell: () => <Rewards />,
+    header: () => <div className="flex-center">Recompensas</div>,
+    cell: () => (
+      <div className="flex-center w-full">
+        <Rewards />
+      </div>
+    ),
   },
   {
     id: 'rating',
-    header: 'Calificación',
-    cell: () => <Rating />,
+    header: () => <div className="flex-center">Calificación</div>,
+    cell: () => (
+      <div className="flex-center w-full">
+        <Rating />
+      </div>
+    ),
   },
   {
     id: 'actions',
     cell: () => (
-      <div className="max-w-[30px] px-2">
+      <div className="flex justify-end w-full px-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">

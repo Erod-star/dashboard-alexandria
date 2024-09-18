@@ -12,6 +12,8 @@ export * from './ui/progress';
 export * from './ui/radio-group';
 export * from './ui/select';
 export * from './ui/separator';
+export * from './ui/sonner';
 export * from './ui/table';
 export * from './ui/toggle-group';
 export * from './ui/toggle';
+export * from './ui/tooltip';
