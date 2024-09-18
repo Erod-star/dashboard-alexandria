@@ -44,6 +44,7 @@ export function InventoryTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [category, setCategory] = useState('all');
   const [state, setState] = useState('all');
+  const [propertyType, setPropertyType] = useState('all');
 
   const table = useReactTable({
     data,
@@ -73,6 +74,39 @@ export function InventoryTable<TData, TValue>({
         />
 
         <div className="flex flex-col justify-center gap-3">
+          <Label className="text-alt-green-300" htmlFor="tipo-de-propiedad">
+            Tipo de propiedad
+          </Label>
+          <Select
+            value={propertyType}
+            onValueChange={(value) => {
+              setPropertyType(value);
+              if (value === 'all') {
+                table.getColumn('detail')?.setFilterValue(null);
+              } else {
+                table.getColumn('detail')?.setFilterValue(value);
+              }
+            }}
+          >
+            <SelectTrigger id="tipo-de-propiedad" className="w-[180px]">
+              <SelectValue placeholder="Todas" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="all">Todas</SelectItem>
+                <SelectItem value="Casa">Casa</SelectItem>
+                <SelectItem value="Departamento">Departamento</SelectItem>
+                <SelectItem value="Condominio">Condominio</SelectItem>
+                <SelectItem value="Nave industrial">Nave industrial</SelectItem>
+                <SelectItem value="Terreno">Terreno</SelectItem>
+                <SelectItem value="Local">Local</SelectItem>
+                <SelectItem value="Oficina">Oficina</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex flex-col justify-center gap-3">
           <Label className="text-alt-green-300" htmlFor="categoria">
             Categoría
           </Label>
@@ -80,7 +114,7 @@ export function InventoryTable<TData, TValue>({
             value={category}
             onValueChange={(value) => {
               setCategory(value);
-              if (value === 'all' || value === 'Todas') {
+              if (value === 'all') {
                 table.getColumn('category')?.setFilterValue(null);
               } else {
                 table.getColumn('category')?.setFilterValue(value);
@@ -92,17 +126,26 @@ export function InventoryTable<TData, TValue>({
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Categoría</SelectLabel>
                 <SelectItem value="all">Todas</SelectItem>
-                <SelectItem value="premium">Premium</SelectItem>
-                <SelectItem value="build">Build</SelectItem>
+
+                <SelectLabel>Premium</SelectLabel>
+                <SelectItem value="Cobranza">Cobranza</SelectItem>
+                <SelectItem value="Juicio">Juicio</SelectItem>
+                <SelectItem value="Sentencia">Sentencia</SelectItem>
+                <SelectItem value="Adjudicada">Adjudicada</SelectItem>
+
+                <SelectLabel>Premium</SelectLabel>
+                <SelectItem value="Altaltium">Altaltium</SelectItem>
+                <SelectItem value="Preventa">Preventa</SelectItem>
+                <SelectItem value="Consignación">Consignación</SelectItem>
+                <SelectItem value="Banco">Banco</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
 
         <div className="flex flex-col justify-center gap-3">
-          <Label className="text-alt-green-300" htmlFor="categoria">
+          <Label className="text-alt-green-300" htmlFor="estado">
             Estado
           </Label>
           <Select
@@ -116,7 +159,7 @@ export function InventoryTable<TData, TValue>({
               }
             }}
           >
-            <SelectTrigger id="categoria" className="w-[180px]">
+            <SelectTrigger id="estado" className="w-[180px]">
               <SelectValue placeholder="Todas" />
             </SelectTrigger>
             <SelectContent>

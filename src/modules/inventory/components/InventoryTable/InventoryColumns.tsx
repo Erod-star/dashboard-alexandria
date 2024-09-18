@@ -18,20 +18,8 @@ import {
 // ? Helpers
 import { formatToMxn } from '@/helpers';
 
-// TODO: Replace this with the correct type once that Mike provides the real data
-export type Property = {
-  id: string;
-  photos: string[];
-  name: string;
-  category: 'Premium' | 'Build';
-  type: 'Casa' | 'Departamento';
-  totalSpace: number;
-  totalBuildedSpace: number;
-  dateOfRegistration: string;
-  commercialValue: number;
-  finishValue: number;
-  availability: 'Disponible' | 'Apartada' | 'Vendida';
-};
+// ? Types
+import type { Property } from '@/modules/inventory/interfaces';
 
 export const inventoryColumns: ColumnDef<Property>[] = [
   {
