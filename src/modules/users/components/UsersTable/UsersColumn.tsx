@@ -45,6 +45,7 @@ export const usersColumns: ColumnDef<User>[] = [
     },
   },
   {
+    id: 'detail',
     accessorKey: 'name',
     header: 'Nombre',
     cell: ({ row }) => {

@@ -237,7 +237,7 @@ function InventoryView() {
 
   return (
     <div className="h-full">
-      <section className="mb-5 flex justify-between">
+      <section className="flex justify-between">
         <h2 className="text-4xl font-bold">Inventario</h2>
 
         <Button
