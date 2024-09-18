@@ -6,11 +6,22 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  SortingState,
+  getSortedRowModel,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
 
 // ? Components
 import {
+  Button,
+  Label,
   SearchInput,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Table,
   TableBody,
   TableCell,
@@ -29,21 +40,26 @@ export function UsersTable<TData, TValue>({
   data,
 }: UsersTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [department, setDepartment] = useState('all');
 
   const table = useReactTable({
     data,
     columns,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
+      sorting,
       columnFilters,
     },
   });
 
   return (
     <>
-      <div className="flex items-center pb-4">
-        {/* TODO: Añadir los filtros por los etatus - Video del Fernando god "Filtrar registros" min:4:08 */}
+      <div className="flex gap-5 items-end pb-4">
         <SearchInput
           className="w-[20rem] bg-alt-gray-600 border-gray-400"
           placeholder="Buscar por nombre..."
@@ -55,6 +71,37 @@ export function UsersTable<TData, TValue>({
               ?.setFilterValue(event.target.value);
           }}
         />
+
+        <div className="flex flex-col justify-center gap-3">
+          <Label className="text-alt-green-300" htmlFor="departamento">
+            Departamento
+          </Label>
+          <Select
+            value={department}
+            onValueChange={(value) => {
+              setDepartment(value);
+              if (value === 'all') {
+                table.getColumn('department')?.setFilterValue(null);
+              } else {
+                table.getColumn('department')?.setFilterValue(value);
+              }
+            }}
+          >
+            <SelectTrigger id="departamento" className="w-[180px]">
+              <SelectValue placeholder="Todas" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="all">Todas</SelectItem>
+                <SelectItem value="Vendedor">Vendedor</SelectItem>
+                <SelectItem value="Jurídico">Jurídico</SelectItem>
+                <SelectItem value="Marketing">Marketing</SelectItem>
+                <SelectItem value="Gerencia">Gerencia</SelectItem>
+                <SelectItem value="Administración">Administración</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div className="rounded-md border border-alt-green-900 bg-alt-gray-600">
         <Table className="border-b-8 border-alt-green-900">
@@ -106,6 +153,23 @@ export function UsersTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+
+        <div className="flex items-center justify-end space-x-2 py-4 mr-4">
+          <Button
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Anterior
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Siguiente
+          </Button>
+        </div>
       </div>
     </>
   );

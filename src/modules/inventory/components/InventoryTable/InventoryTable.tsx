@@ -68,9 +68,12 @@ export function InventoryTable<TData, TValue>({
           className="w-[20rem] bg-alt-gray-600 border-gray-400"
           placeholder="Buscar por nombre..."
           value={(table.getColumn('detail')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('detail')?.setFilterValue(event.target.value)
-          }
+          onChange={(event) => {
+            setPropertyType('all');
+            return table
+              .getColumn('detail')
+              ?.setFilterValue(event.target.value);
+          }}
         />
 
         <div className="flex flex-col justify-center gap-3">

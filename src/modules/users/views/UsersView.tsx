@@ -59,7 +59,7 @@ function UsersView() {
 
   return (
     <div className="h-full">
-      <section className="mb-5 flex justify-between">
+      <section className="flex justify-between">
         <h2 className="text-4xl font-bold">Usuarios</h2>
 
         <Button

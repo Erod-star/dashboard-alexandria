@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { toast } from 'sonner';
 
 // ? Icons
-import { Mail, MoreHorizontal, Phone } from 'lucide-react';
+import { ArrowUpDown, Mail, MoreHorizontal, Phone } from 'lucide-react';
 
 // ? Components
 import {
@@ -47,7 +47,18 @@ export const usersColumns: ColumnDef<User>[] = [
   {
     id: 'detail',
     accessorKey: 'name',
-    header: 'Nombre',
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-lg"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Nombre
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const { name, email } = row.original;
       return (
@@ -119,10 +130,10 @@ export const usersColumns: ColumnDef<User>[] = [
   {
     id: 'actions',
     cell: () => (
-      <div className="flex justify-end w-full px-2">
+      <div className="flex justify-center w-full px-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
