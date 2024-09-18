@@ -1,10 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 // ? Components
 import { Button } from '@/components';
 import { usersColumns, UsersTable } from '../components';
 
-import { User } from '../interfaces';
+// ? Types
+import type { User } from '../interfaces';
 
 function UsersView() {
+  const navigate = useNavigate();
   const users: User[] = [
     {
       id: '1',
@@ -58,7 +62,12 @@ function UsersView() {
       <section className="mb-5 flex justify-between">
         <h2 className="text-4xl font-bold">Usuarios</h2>
 
-        <Button className="text-base font-semibold">+ Usuario</Button>
+        <Button
+          className="text-base font-semibold"
+          onClick={() => navigate('/usuarios/nuevo')}
+        >
+          + Usuario
+        </Button>
       </section>
 
       <div className="pb-6">

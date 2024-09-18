@@ -12,6 +12,7 @@ import RootLayout from '@/layouts/RootLayout';
 
 // ? Views
 import UsersView from '@/modules/users/views/UsersView';
+import UsersFormView from '@/modules/users/views/UsersFormView';
 
 import InventoryView from '@/modules/inventory/views/InventoryView';
 import CreateInventoryView from '@/modules/inventory/views/CreateInventoryView';
@@ -35,6 +36,7 @@ export const router = createBrowserRouter(
 
       <Route path="usuarios">
         <Route index element={<UsersView />} />
+        <Route path="nuevo" element={<UsersFormView />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
