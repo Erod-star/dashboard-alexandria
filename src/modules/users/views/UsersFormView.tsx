@@ -50,7 +50,13 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Nombre(s)</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input
+                            placeholder="Juan Alberto"
+                            type="text"
+                            minLength={2}
+                            required
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -64,7 +70,13 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Apellidos</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input
+                            placeholder="Pérez Rodríguez"
+                            type="text"
+                            minLength={2}
+                            required
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -80,7 +92,7 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Teléfono</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input placeholder="000 000 0000" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -94,7 +106,12 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Correo electrónico</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input
+                            placeholder="juan@gmail.com"
+                            type="email"
+                            required
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -109,7 +126,7 @@ const UsersFormView = () => {
                     <FormItem className="w-2/3">
                       <FormLabel>Rol</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" {...field} />
+                        <Input placeholder="Vendedor" required {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -124,7 +141,7 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Historial de propiedades</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input placeholder="???" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -138,7 +155,7 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Propiedad</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input placeholder="???" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -161,7 +178,12 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Calle y número</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input
+                            placeholder="Paseo de las rosas #246"
+                            type="text"
+                            required
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -175,7 +197,12 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Colonia</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input
+                            placeholder="Jardines de la villa"
+                            type="text"
+                            required
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -191,7 +218,12 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Alcaldia / Municipio</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input
+                            placeholder="Guadalajara"
+                            type="text"
+                            required
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -205,7 +237,13 @@ const UsersFormView = () => {
                       <FormItem className="w-1/2">
                         <FormLabel>Código postal</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input
+                            placeholder="00000"
+                            maxLength={5}
+                            minLength={5}
+                            required
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

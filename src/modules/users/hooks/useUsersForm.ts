@@ -23,12 +23,18 @@ export const useUsersForm = () => {
     role: z.string().min(1, {
       message: 'Por favor selecciona un rol.',
     }),
-    propertiesHistory: z.string().min(1, {
-      message: 'Por favor selecciona un rol.',
-    }),
-    property: z.string().min(1, {
-      message: 'Por favor selecciona una propiedad.',
-    }),
+    propertiesHistory: z
+      .string()
+      .min(1, {
+        message: 'Por favor selecciona un rol.',
+      })
+      .optional(),
+    property: z
+      .string()
+      .min(1, {
+        message: 'Por favor selecciona una propiedad.',
+      })
+      .optional(),
     streetAndNumber: textField,
     colony: textField,
     city: textField,
