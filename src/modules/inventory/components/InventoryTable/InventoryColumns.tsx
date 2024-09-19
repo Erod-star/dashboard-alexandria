@@ -199,8 +199,9 @@ export const inventoryColumns: ColumnDef<Property>[] = [
   },
   {
     id: 'actions',
+    header: () => <div className="flex-center">Acciones</div>,
     cell: () => (
-      <div className="px-2">
+      <div className="px-2 flex-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className="h-8 w-8 p-0">

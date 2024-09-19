@@ -4,6 +4,7 @@ export * from './custom/TabNumbers';
 export * from './ui/avatar';
 export * from './ui/badge';
 export * from './ui/button';
+export * from './ui/collapsible';
 export * from './ui/dropdown-menu';
 export * from './ui/form';
 export * from './ui/input';

@@ -129,6 +129,7 @@ export const usersColumns: ColumnDef<User>[] = [
   },
   {
     id: 'actions',
+    header: () => <div className="flex-center">Acciones</div>,
     cell: () => (
       <div className="flex justify-center w-full px-2">
         <DropdownMenu>
