@@ -1,18 +1,24 @@
+import { useNavigate } from 'react-router-dom';
+
 // ? Components
 import { Button } from '@/components';
 import {
   inventoryColumns,
   InventoryTable,
-  Property,
 } from '@/modules/inventory/components';
 
+// ? Types
+import type { Property } from '@/modules/inventory/interfaces';
+
 function InventoryView() {
+  const navigate = useNavigate();
+
   const data: Property[] = [
     {
       id: 'p1',
       photos: ['https://github.com/shadcn.png'],
       name: 'Casa en la Playa',
-      category: 'Premium',
+      category: 'Adjudicada',
       type: 'Casa',
       totalSpace: 300,
       totalBuildedSpace: 250,
@@ -25,7 +31,7 @@ function InventoryView() {
       id: 'p2',
       photos: ['https://github.com/shadcn.png'],
       name: 'Departamento Urbano',
-      category: 'Build',
+      category: 'Altaltium',
       type: 'Departamento',
       totalSpace: 120,
       totalBuildedSpace: 100,
@@ -38,7 +44,7 @@ function InventoryView() {
       id: 'p3',
       photos: ['https://github.com/shadcn.png'],
       name: 'Residencia Familiar',
-      category: 'Premium',
+      category: 'Banco',
       type: 'Casa',
       totalSpace: 400,
       totalBuildedSpace: 350,
@@ -51,7 +57,7 @@ function InventoryView() {
       id: 'p4',
       photos: ['https://github.com/shadcn.png'],
       name: 'Loft Moderno',
-      category: 'Build',
+      category: 'Cobranza',
       type: 'Departamento',
       totalSpace: 80,
       totalBuildedSpace: 70,
@@ -64,7 +70,7 @@ function InventoryView() {
       id: 'p5',
       photos: ['https://github.com/shadcn.png'],
       name: 'Villa de Lujo',
-      category: 'Premium',
+      category: 'Consignación',
       type: 'Casa',
       totalSpace: 600,
       totalBuildedSpace: 500,
@@ -77,7 +83,7 @@ function InventoryView() {
       id: 'p6',
       photos: ['https://github.com/shadcn.png'],
       name: 'Casa en el Bosque',
-      category: 'Premium',
+      category: 'Juicio',
       type: 'Casa',
       totalSpace: 450,
       totalBuildedSpace: 400,
@@ -90,7 +96,7 @@ function InventoryView() {
       id: 'p7',
       photos: ['https://github.com/shadcn.png'],
       name: 'Departamento en el Centro',
-      category: 'Build',
+      category: 'Preventa',
       type: 'Departamento',
       totalSpace: 110,
       totalBuildedSpace: 90,
@@ -103,7 +109,7 @@ function InventoryView() {
       id: 'p8',
       photos: ['https://github.com/shadcn.png'],
       name: 'Chalet en la Montaña',
-      category: 'Premium',
+      category: 'Sentencia',
       type: 'Casa',
       totalSpace: 350,
       totalBuildedSpace: 320,
@@ -116,7 +122,7 @@ function InventoryView() {
       id: 'p9',
       photos: ['https://github.com/shadcn.png'],
       name: 'Penthouse Exclusivo',
-      category: 'Build',
+      category: 'Adjudicada',
       type: 'Departamento',
       totalSpace: 150,
       totalBuildedSpace: 130,
@@ -129,7 +135,7 @@ function InventoryView() {
       id: 'p10',
       photos: ['https://github.com/shadcn.png'],
       name: 'Casa de Campo',
-      category: 'Premium',
+      category: 'Altaltium',
       type: 'Casa',
       totalSpace: 500,
       totalBuildedSpace: 450,
@@ -142,7 +148,7 @@ function InventoryView() {
       id: 'p11',
       photos: ['https://github.com/shadcn.png'],
       name: 'Departamento Minimalista',
-      category: 'Build',
+      category: 'Banco',
       type: 'Departamento',
       totalSpace: 95,
       totalBuildedSpace: 85,
@@ -155,7 +161,7 @@ function InventoryView() {
       id: 'p12',
       photos: ['https://github.com/shadcn.png'],
       name: 'Casa de Lujo en la Ciudad',
-      category: 'Premium',
+      category: 'Consignación',
       type: 'Casa',
       totalSpace: 550,
       totalBuildedSpace: 500,
@@ -168,7 +174,7 @@ function InventoryView() {
       id: 'p13',
       photos: ['https://github.com/shadcn.png'],
       name: 'Departamento con Vista al Mar',
-      category: 'Build',
+      category: 'Juicio',
       type: 'Departamento',
       totalSpace: 140,
       totalBuildedSpace: 120,
@@ -181,7 +187,7 @@ function InventoryView() {
       id: 'p14',
       photos: ['https://github.com/shadcn.png'],
       name: 'Casa Moderna',
-      category: 'Premium',
+      category: 'Preventa',
       type: 'Casa',
       totalSpace: 320,
       totalBuildedSpace: 280,
@@ -194,7 +200,7 @@ function InventoryView() {
       id: 'p15',
       photos: ['https://github.com/shadcn.png'],
       name: 'Departamento en la Costa',
-      category: 'Build',
+      category: 'Adjudicada',
       type: 'Departamento',
       totalSpace: 130,
       totalBuildedSpace: 110,
@@ -207,7 +213,7 @@ function InventoryView() {
       id: 'p16',
       photos: ['https://github.com/shadcn.png'],
       name: 'Casa Tradicional',
-      category: 'Premium',
+      category: 'Cobranza',
       type: 'Casa',
       totalSpace: 380,
       totalBuildedSpace: 340,
@@ -220,7 +226,7 @@ function InventoryView() {
       id: 'p17',
       photos: ['https://github.com/shadcn.png'],
       name: 'Departamento Industrial',
-      category: 'Build',
+      category: 'Adjudicada',
       type: 'Departamento',
       totalSpace: 100,
       totalBuildedSpace: 90,
@@ -233,10 +239,13 @@ function InventoryView() {
 
   return (
     <div className="h-full">
-      <section className="mb-5 flex justify-between">
+      <section className="flex justify-between">
         <h2 className="text-4xl font-bold">Inventario</h2>
 
-        <Button onClick={() => console.log('::TODO: Add modal!')}>
+        <Button
+          className="text-base font-semibold"
+          onClick={() => navigate('/inventario/nuevo')}
+        >
           + Propiedad
         </Button>
       </section>

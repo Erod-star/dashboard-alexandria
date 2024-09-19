@@ -6,5 +6,19 @@
       "color": "#fff"
     }
   ],
-  "cSpell.words": ["altaltium", "clsx", "lucide", "tailwindcss", "tanstack"]
+  "cSpell.language": "en,es",
+  "cSpell.words": [
+    "Administración",
+    "altaltium",
+    "clsx",
+    "Gerencia",
+    "inventario",
+    "Jurídico",
+    "lucide",
+    "Propiedad",
+    "tailwindcss",
+    "tanstack",
+    "usuarios",
+    "Vendedor"
+  ]
 }

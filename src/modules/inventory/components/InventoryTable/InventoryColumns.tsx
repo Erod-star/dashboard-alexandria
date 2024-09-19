@@ -18,20 +18,8 @@ import {
 // ? Helpers
 import { formatToMxn } from '@/helpers';
 
-// TODO: Replace this with the correct type once that Mike provides the real data
-export type Property = {
-  id: string;
-  photos: string[];
-  name: string;
-  category: 'Premium' | 'Build';
-  type: 'Casa' | 'Departamento';
-  totalSpace: number;
-  totalBuildedSpace: number;
-  dateOfRegistration: string;
-  commercialValue: number;
-  finishValue: number;
-  availability: 'Disponible' | 'Apartada' | 'Vendida';
-};
+// ? Types
+import type { Property } from '@/modules/inventory/interfaces';
 
 export const inventoryColumns: ColumnDef<Property>[] = [
   {
@@ -211,11 +199,12 @@ export const inventoryColumns: ColumnDef<Property>[] = [
   },
   {
     id: 'actions',
+    header: () => <div className="flex-center">Acciones</div>,
     cell: () => (
-      <div className="max-w-[30px] px-2">
+      <div className="px-2 flex-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>

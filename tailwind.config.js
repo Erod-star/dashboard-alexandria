@@ -52,8 +52,12 @@ export default {
           5: 'hsl(var(--chart-5))',
         },
         // ? Custom colors
+        // * Red
+        'alt-red-400': '#FF7878',
+
         // * Green
         'alt-green-300': '#AAFFE3',
+        'alt-green-400': '#82bfab',
         'alt-green-900': '#131D1F',
 
         // * Slate
