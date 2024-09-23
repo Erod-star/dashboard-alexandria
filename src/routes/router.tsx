@@ -24,6 +24,7 @@ import RequestsView from '@/modules/requests/views/RequestsView';
 
 // Leads
 import LeadsView from '@/modules/leads/views/LeadsView';
+import LeadsFormView from '@/modules/leads/views/LeadsFormView';
 
 // Users
 import UsersView from '@/modules/users/views/UsersView';
@@ -56,6 +57,7 @@ export const router = createBrowserRouter(
 
       <Route path="leads">
         <Route index element={<LeadsView />} />
+        <Route path="nuevo" element={<LeadsFormView />} />
       </Route>
 
       <Route path="usuarios">
