@@ -2,7 +2,7 @@ import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
-export const useUsersForm = () => {
+export const useLeadsForm = () => {
   const textField = z
     .string()
     .min(2, { message: 'Por favor ingresa minímo 2 caracteres' })
@@ -20,9 +20,12 @@ export const useUsersForm = () => {
       message: 'Porfavor ingresa un número de teléfono válido.',
     }),
     email: z.string().email({ message: 'Porfavor ingresa un correo válido.' }),
-    role: z.string().min(1, {
-      message: 'Por favor selecciona un rol.',
-    }),
+    reason: z
+      .string()
+      .min(10, {
+        message: 'El motivo debe tener al menos 10 caracteres.',
+      })
+      .optional(),
     propertiesHistory: z
       .string()
       .min(1, {
@@ -50,7 +53,7 @@ export const useUsersForm = () => {
       lastName: '',
       phone: '',
       email: '',
-      role: '',
+      reason: '',
       propertiesHistory: '',
       property: '',
       streetAndNumber: '',
