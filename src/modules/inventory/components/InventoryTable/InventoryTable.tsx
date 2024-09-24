@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
   Label,
+  Empty,
 } from '@/components';
 
 interface InventoryTableProps<TData, TValue> {
@@ -189,9 +190,9 @@ export function InventoryTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
@@ -225,9 +226,9 @@ export function InventoryTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24"
                 >
-                  No results.
+                  <Empty />
                 </TableCell>
               </TableRow>
             )}
