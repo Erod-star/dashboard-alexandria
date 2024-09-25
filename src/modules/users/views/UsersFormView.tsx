@@ -132,36 +132,6 @@ const UsersFormView = () => {
                     </FormItem>
                   )}
                 />
-
-                <div className="flex gap-5">
-                  <FormField
-                    control={form.control}
-                    name="propertiesHistory"
-                    render={({ field }) => (
-                      <FormItem className="w-1/2">
-                        <FormLabel>Historial de propiedades</FormLabel>
-                        <FormControl>
-                          <Input placeholder="???" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="property"
-                    render={({ field }) => (
-                      <FormItem className="w-1/2">
-                        <FormLabel>Propiedad</FormLabel>
-                        <FormControl>
-                          <Input placeholder="???" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
               </div>
             </div>
 

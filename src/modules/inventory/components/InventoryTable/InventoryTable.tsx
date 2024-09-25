@@ -138,7 +138,7 @@ export function InventoryTable<TData, TValue>({
                 <SelectItem value="Sentencia">Sentencia</SelectItem>
                 <SelectItem value="Adjudicada">Adjudicada</SelectItem>
 
-                <SelectLabel>Premium</SelectLabel>
+                <SelectLabel>Classic</SelectLabel>
                 <SelectItem value="Altaltium">Altaltium</SelectItem>
                 <SelectItem value="Preventa">Preventa</SelectItem>
                 <SelectItem value="Consignación">Consignación</SelectItem>

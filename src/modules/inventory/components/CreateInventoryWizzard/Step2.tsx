@@ -44,10 +44,6 @@ const formSchema = z.object({
     .string()
     .min(1, { message: 'Por favor selecciona la cantidad de estacionamientos' })
     .trim(),
-  folio: z
-    .string()
-    .min(1, { message: 'Por favor introduce un folio correcto' })
-    .trim(),
   totalArea: z
     .string()
     .min(1, { message: 'Por favor introduce la superficie total' })
@@ -72,7 +68,6 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
       rooms: '',
       bathRooms: '',
       parkings: '',
-      folio: '',
       totalArea: '',
       builtArea: '',
     },
@@ -198,20 +193,6 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
           </div>
 
           <div className="col-span-2">
-            <FormField
-              control={form.control}
-              name="folio"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Folio</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="text" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <h3 className="mt-8 text-2xl font-semibold">Superficie</h3>
             <Separator className="my-4" />
 
