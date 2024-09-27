@@ -5,6 +5,7 @@ import { UserPlus } from 'lucide-react';
 
 // ? Components
 import { Button } from '@/components';
+import { CalendarComponent, CreateDialogEvent } from '../components';
 
 function CalendarView() {
   return (
@@ -12,7 +13,7 @@ function CalendarView() {
       <section className="mb-5 flex justify-between">
         <h2 className="text-4xl font-bold">Calendario</h2>
 
-        <Button className="text-base font-semibold">Nuevo evento</Button>
+        <CreateDialogEvent />
       </section>
 
       <div className="grid grid-cols-3 h-full">
@@ -35,7 +36,9 @@ function CalendarView() {
           </Button>
         </div>
 
-        <div className="col-span-2 bg-red-400 h-full"></div>
+        <div className="col-span-2 bg-red-400 flex-center">
+          <CalendarComponent />
+        </div>
       </div>
     </div>
   );

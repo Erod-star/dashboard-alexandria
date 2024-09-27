@@ -9,6 +9,7 @@ import {
 import RootLayout from '@/layouts/RootLayout';
 
 // ? === Views ===
+
 // Calendar
 import CalendarView from '@/modules/calendar/views/CalendarView';
 
@@ -35,37 +36,39 @@ import { NotFound } from '@/modules/global/views/NotFound';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Navigate to="/inventario" />} />
+    <>
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<Navigate to="/inventario" />} />
 
-      <Route path="calendario">
-        <Route index element={<CalendarView />} />
+        <Route path="calendario">
+          <Route index element={<CalendarView />} />
+        </Route>
+
+        <Route path="inventario">
+          <Route index element={<InventoryView />} />
+          <Route path="nuevo" element={<CreateInventoryView />} />
+        </Route>
+
+        <Route path="publicaciones">
+          <Route index element={<PublicationsView />} />
+        </Route>
+
+        <Route path="peticiones">
+          <Route index element={<RequestsView />} />
+        </Route>
+
+        <Route path="leads">
+          <Route index element={<LeadsView />} />
+          <Route path="nuevo" element={<LeadsFormView />} />
+        </Route>
+
+        <Route path="usuarios">
+          <Route index element={<UsersView />} />
+          <Route path="nuevo" element={<UsersFormView />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Route>
-
-      <Route path="inventario">
-        <Route index element={<InventoryView />} />
-        <Route path="nuevo" element={<CreateInventoryView />} />
-      </Route>
-
-      <Route path="publicaciones">
-        <Route index element={<PublicationsView />} />
-      </Route>
-
-      <Route path="peticiones">
-        <Route index element={<RequestsView />} />
-      </Route>
-
-      <Route path="leads">
-        <Route index element={<LeadsView />} />
-        <Route path="nuevo" element={<LeadsFormView />} />
-      </Route>
-
-      <Route path="usuarios">
-        <Route index element={<UsersView />} />
-        <Route path="nuevo" element={<UsersFormView />} />
-      </Route>
-
-      <Route path="*" element={<NotFound />} />
-    </Route>
+    </>
   )
 );

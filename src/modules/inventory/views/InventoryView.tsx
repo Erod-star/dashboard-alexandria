@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // ? Components
-import { Button, } from '@/components';
+import { Button } from '@/components';
 import {
   inventoryColumns,
   InventoryTable,
@@ -16,7 +17,11 @@ function InventoryView() {
   const data: Property[] = [
     {
       id: 'p1',
-      photos: ['https://github.com/shadcn.png', 'https://github.com/shadcn.png', 'https://github.com/shadcn.png'],
+      photos: [
+        'https://github.com/shadcn.png',
+        'https://github.com/shadcn.png',
+        'https://github.com/shadcn.png',
+      ],
       name: 'Casa en la Playa',
       category: 'Adjudicada',
       type: 'Casa',
@@ -236,6 +241,11 @@ function InventoryView() {
       availability: 'Disponible',
     },
   ];
+
+  useEffect(() => {
+    // ? Coming soon...
+    console.log('::Fetching data from the API...');
+  }, []);
 
   return (
     <div className="h-full">
