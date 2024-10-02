@@ -5,39 +5,44 @@ import { UserPlus } from 'lucide-react';
 
 // ? Components
 import { Button } from '@/components';
-import { CalendarComponent, CreateDialogEvent } from '../components';
+import {
+  CalendarComponent,
+  CalendarGlossary,
+  CreateDialogEvent,
+} from '@/modules/calendar/components';
+
+// ? Hooks
+import { useEvents } from '../hooks';
 
 function CalendarView() {
+  const { parsedEvents, isLoading } = useEvents();
+
   return (
-    <div className="h-full flex flex-col">
-      <section className="mb-5 flex justify-between">
-        <h2 className="text-4xl font-bold">Calendario</h2>
+    <div className="flex flex-col h-full">
+      <div className="grid grid-cols-4 gap-10 h-full">
+        <div className="space-y-10">
+          <h2 className="text-4xl font-bold">Calendario</h2>
+          <div className="w-full border rounded-sm p-4">
+            <CalendarGlossary />
+          </div>
 
-        <CreateDialogEvent />
-      </section>
-
-      <div className="grid grid-cols-3 h-full">
-        <div>
-          <div className="w-full h-[22rem] bg-yellow-300"></div>
-          <Button
-            className="flex gap-3 text-base font-semibold mt-3"
-            variant="ghost"
-            onClick={() =>
-              toast('Event has been created', {
-                description: 'Sunday, December 03, 2023 at 9:00 AM',
-                action: {
-                  label: 'Undo',
-                  onClick: () => console.log('Undo'),
-                },
-              })
-            }
-          >
-            <UserPlus /> <p>Buscar personas</p>
-          </Button>
+          <div className="space-y-3">
+            <h3 className="text-3xl font-medium">Acciones</h3>
+            <CreateDialogEvent />
+            <Button
+              className="flex gap-3 text-base font-semibold mt-3 w-full"
+              disabled={isLoading}
+              onClick={() =>
+                toast.info('¡Esta funcionalidad aún no está disponible!')
+              }
+            >
+              <UserPlus className="size-5" /> <p>Buscar personas</p>
+            </Button>
+          </div>
         </div>
 
-        <div className="col-span-2 bg-red-400 flex-center">
-          <CalendarComponent />
+        <div className="col-span-3">
+          <CalendarComponent events={parsedEvents} isLoading={isLoading} />
         </div>
       </div>
     </div>

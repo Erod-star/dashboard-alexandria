@@ -72,7 +72,7 @@ export const usersColumns: ColumnDef<User>[] = [
               variant="link"
               onClick={() => {
                 navigator.clipboard.writeText(email);
-                toast.info('Correo copiado en el portapapeles', {
+                toast('Correo copiado en el portapapeles', {
                   duration: 1500,
                 });
               }}
@@ -87,7 +87,7 @@ export const usersColumns: ColumnDef<User>[] = [
               variant="link"
               onClick={() => {
                 navigator.clipboard.writeText('312 133 5555');
-                toast.info('Teléfono copiado en el portapapeles', {
+                toast('Teléfono copiado en el portapapeles', {
                   duration: 1500,
                 });
               }}
