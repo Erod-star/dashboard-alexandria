@@ -1,7 +1,7 @@
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef } from "@tanstack/react-table";
 
 // ? Icons
-import { House, MoreHorizontal, Building2, ArrowUpDown } from 'lucide-react';
+import { House, MoreHorizontal, Building2, ArrowUpDown } from "lucide-react";
 
 // ? Components
 import {
@@ -13,18 +13,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components';
+} from "@/components";
 
 // ? Helpers
-import { formatToMxn } from '@/helpers';
+import { formatToMxn } from "@/helpers";
 
 // ? Types
-import type { Property } from '@/modules/inventory/interfaces';
+import type { Property } from "@/modules/inventory/interfaces";
+import { HandleImages } from "../HandleImages";
 
 export const inventoryColumns: ColumnDef<Property>[] = [
   {
-    id: 'photos',
-    accessorKey: 'photos',
+    id: "photos",
+    accessorKey: "photos",
     header: () => (
       <div className="flex-center">
         <div className="relative">
@@ -36,33 +37,18 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     cell: ({ row }) => {
       const property = row.original;
 
-      return (
-        <div className="flex-center flex-col gap-2">
-          <img
-            src={property.photos[0]}
-            alt={property.name}
-            className="size-20 object-cover rounded-md"
-          />
-          <div className="flex gap-1">
-            <div className="size-6 rounded-md bg-red-200" />
-            <div className="size-6 rounded-md bg-red-200" />
-            <div className="size-6 rounded-md bg-red-200 text-xs flex-center text-black font-semibold">
-              +2
-            </div>
-          </div>
-        </div>
-      );
+      return <HandleImages images={property.photos} />;
     },
   },
   {
-    id: 'detail',
-    accessorKey: 'name',
+    id: "detail",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
           className="text-lg"
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Detalle de la propiedad
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -76,7 +62,7 @@ export const inventoryColumns: ColumnDef<Property>[] = [
         <div>
           <p className="font-bold text-2xl mb-1">{property.name}</p>
           <div className="text-base flex items-center gap-1  mb-3 text-alt-green-300">
-            {property.type === 'Departamento' ? (
+            {property.type === "Departamento" ? (
               <Building2 className="size-4" />
             ) : (
               <House className="size-4" />
@@ -85,7 +71,7 @@ export const inventoryColumns: ColumnDef<Property>[] = [
           </div>
 
           <p className="text-sm font-semibold">
-            Registrado el{' '}
+            Registrado el{" "}
             <span className="text-alt-green-300">
               {property.dateOfRegistration}
             </span>
@@ -95,44 +81,44 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     },
   },
   {
-    id: 'category',
-    accessorKey: 'category',
+    id: "category",
+    accessorKey: "category",
     header: () => <div className="text-center">Categoría</div>,
     cell: ({ row }) => (
       <div className="flex-center">
         <Badge className="bg-alt-green-300 text-alt-green-900">
-          {row.getValue('category')}
+          {row.getValue("category")}
         </Badge>
       </div>
     ),
   },
   {
-    id: 'availability',
-    accessorKey: 'availability',
+    id: "availability",
+    accessorKey: "availability",
     header: () => <div className="text-center">Estado</div>,
     cell: ({ row }) => {
       switch (row.original.availability) {
-        case 'Disponible':
+        case "Disponible":
           return (
             <div className="flex-center font-medium">
               <Badge className="" variant="danger">
-                {row.getValue('availability')}
+                {row.getValue("availability")}
               </Badge>
             </div>
           );
-        case 'Apartada':
+        case "Apartada":
           return (
             <div className="flex-center font-medium">
               <Badge className="font-medium" variant="warning">
-                {row.getValue('availability')}
+                {row.getValue("availability")}
               </Badge>
             </div>
           );
-        case 'Vendida':
+        case "Vendida":
           return (
             <div className="flex-center font-medium">
               <Badge className="font-medium" variant="success">
-                {row.getValue('availability')}
+                {row.getValue("availability")}
               </Badge>
             </div>
           );
@@ -140,7 +126,7 @@ export const inventoryColumns: ColumnDef<Property>[] = [
           return (
             <div className="flex-center font-medium">
               <Badge className="font-medium" variant="success">
-                {row.getValue('availability')}
+                {row.getValue("availability")}
               </Badge>
             </div>
           );
@@ -148,11 +134,11 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     },
   },
   {
-    id: 'commercialValue',
-    accessorKey: 'commercialValue',
+    id: "commercialValue",
+    accessorKey: "commercialValue",
     header: () => <div className="text-center">Valor comercial</div>,
     cell: ({ row }) => {
-      const commercialValue = parseFloat(row.getValue('commercialValue'));
+      const commercialValue = parseFloat(row.getValue("commercialValue"));
       return (
         <div className="text-center font-medium">
           {formatToMxn(commercialValue)}
@@ -161,11 +147,11 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     },
   },
   {
-    id: 'finishValue',
-    accessorKey: 'finishValue',
+    id: "finishValue",
+    accessorKey: "finishValue",
     header: () => <div className="text-center">Valor remate</div>,
     cell: ({ row }) => {
-      const finishValue = parseFloat(row.getValue('finishValue'));
+      const finishValue = parseFloat(row.getValue("finishValue"));
       return (
         <div className="text-center font-medium">
           {formatToMxn(finishValue)}
@@ -174,7 +160,7 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     },
   },
   {
-    id: 'propertyDimensions',
+    id: "propertyDimensions",
     header: () => <div className="text-center">Tamaño del terreno</div>,
     cell: ({ row }) => {
       const property = row.original;
@@ -182,15 +168,15 @@ export const inventoryColumns: ColumnDef<Property>[] = [
       return (
         <div className="flex-center flex-col font-medium text-sm">
           <p>
-            Total:{' '}
+            Total:{" "}
             <span className="text-alt-green-300">{property.totalSpace}</span> m²
           </p>
 
           <p>
-            Construido:{' '}
+            Construido:{" "}
             <span className="text-alt-green-300">
               {property.totalBuildedSpace}
-            </span>{' '}
+            </span>{" "}
             m²
           </p>
         </div>
@@ -198,7 +184,7 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     header: () => <div className="flex-center">Acciones</div>,
     cell: () => (
       <div className="px-2 flex-center">
