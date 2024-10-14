@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // ? Components
@@ -8,14 +7,13 @@ import {
   InventoryTable,
 } from '@/modules/inventory/components';
 
-import { getInventories } from '../actions';
+// ? Hooks
+import { useInventories } from '../hooks/useInventories';
 
 function InventoryView() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getInventories();
-  }, []);
+  const { inventories } = useInventories();
 
   return (
     <div className="h-full">
@@ -31,7 +29,7 @@ function InventoryView() {
       </section>
 
       <div className="pb-6">
-        <InventoryTable columns={inventoryColumns} data={[]} />
+        <InventoryTable columns={inventoryColumns} data={inventories} />
       </div>
     </div>
   );

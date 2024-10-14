@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { House, MoreHorizontal, Building2, ArrowUpDown } from "lucide-react";
 
 // ? Components
+import { HandleImages } from "../HandleImages";
 import {
   Badge,
   Button,
@@ -19,10 +20,9 @@ import {
 import { formatToMxn } from "@/helpers";
 
 // ? Types
-import type { Property } from "@/modules/inventory/interfaces";
-import { HandleImages } from "../HandleImages";
+import { Inventory } from "../../types";
 
-export const inventoryColumns: ColumnDef<Property>[] = [
+export const inventoryColumns: ColumnDef<Inventory>[] = [
   {
     id: "photos",
     accessorKey: "photos",
@@ -36,8 +36,9 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     ),
     cell: ({ row }) => {
       const property = row.original;
-
-      return <HandleImages images={property.photos} />;
+      // TODO: Arreglar esto una vez que se tenga la estructura correcta
+      const imgs = property.fotosUrls || '';
+      return <HandleImages images={[imgs]} />;
     },
   },
   {
@@ -60,20 +61,20 @@ export const inventoryColumns: ColumnDef<Property>[] = [
 
       return (
         <div>
-          <p className="font-bold text-2xl mb-1">{property.name}</p>
+          <p className="font-bold text-2xl mb-1">{property.lista}</p>
           <div className="text-base flex items-center gap-1  mb-3 text-alt-green-300">
-            {property.type === "Departamento" ? (
+            {property.tipoPropiedad === "Departamento" ? (
               <Building2 className="size-4" />
             ) : (
               <House className="size-4" />
             )}
-            <p> {property.type} </p>
+            <p> {property.tipoPropiedad} </p>
           </div>
 
           <p className="text-sm font-semibold">
             Registrado el{" "}
             <span className="text-alt-green-300">
-              {property.dateOfRegistration}
+              {property.createdAt || "Sin fecha"}
             </span>
           </p>
         </div>
@@ -97,7 +98,7 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     accessorKey: "availability",
     header: () => <div className="text-center">Estado</div>,
     cell: ({ row }) => {
-      switch (row.original.availability) {
+      switch (row.original.etapaProcesal) {
         case "Disponible":
           return (
             <div className="flex-center font-medium">
@@ -169,15 +170,7 @@ export const inventoryColumns: ColumnDef<Property>[] = [
         <div className="flex-center flex-col font-medium text-sm">
           <p>
             Total:{" "}
-            <span className="text-alt-green-300">{property.totalSpace}</span> m²
-          </p>
-
-          <p>
-            Construido:{" "}
-            <span className="text-alt-green-300">
-              {property.totalBuildedSpace}
-            </span>{" "}
-            m²
+            <span className="text-alt-green-300">{property.terreno}</span> m²
           </p>
         </div>
       );
