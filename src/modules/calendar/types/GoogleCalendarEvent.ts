@@ -2,14 +2,8 @@ export interface GoogleCalendarEvent {
   summary: string; // Título del evento
   location?: string; // Ubicación del evento (opcional)
   description?: string; // Descripción del evento (opcional)
-  start: {
-    dateTime: string | undefined; // Fecha y hora de inicio en formato ISO (Ej. "2024-10-01T10:00:00-07:00")
-    timeZone: string; // Zona horaria
-  };
-  end: {
-    dateTime: string | undefined; // Fecha y hora de fin en formato ISO
-    timeZone: string; // Zona horaria
-  };
+  start: EventDateTime;
+  end: EventDateTime;
   attendees?: Array<{ email: string }>; // Lista de asistentes (opcional)
   reminders?: {
     useDefault: boolean;
@@ -25,25 +19,25 @@ export interface EventItem {
   created: Date;
   updated: Date;
   summary: string;
+  description: string;
   creator: EventCreator;
   organizer: EventCreator;
-  start: {
-    dateTime: Date;
-    timeZone: string;
-  };
-  end: {
-    dateTime: Date;
-    timeZone: string;
-  };
+  start: EventDateTime;
+  end: EventDateTime;
   iCalUID: string;
   sequence: number;
   reminders: { useDefault: boolean };
   eventType: string;
 }
 
+export interface EventDateTime {
+  dateTime: Date | string;
+  timeZone: string;
+}
+
 export interface EventCreator {
   email: string;
-  self: boolean;
+  self?: boolean;
 }
 
 export interface EventReminder {

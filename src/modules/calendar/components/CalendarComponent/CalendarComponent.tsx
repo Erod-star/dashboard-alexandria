@@ -3,29 +3,27 @@ import { format, parse, startOfWeek, getDay } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 // ? Components
+import { Skeleton } from '@/components';
 import { CalendarEvent } from '../CalendarEvent';
 
+// ? Hooks
+import { useEvents } from '../../hooks';
+
 // ? Types
-import type { Event, Components } from 'react-big-calendar';
+import type { Components } from 'react-big-calendar';
+import type { AltaltiumEvent } from '../../types';
 
 // ? Styles
 import './CalendarComponent.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Skeleton } from '@/components';
 
 const locales = {
   es: es,
 };
 
-interface CalendarComponentProps {
-  events: Event[];
-  isLoading?: boolean;
-}
+export const CalendarComponent = () => {
+  const { parsedEvents: events, isLoading } = useEvents();
 
-export const CalendarComponent = ({
-  events,
-  isLoading,
-}: CalendarComponentProps) => {
   const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -34,15 +32,12 @@ export const CalendarComponent = ({
     locales,
   });
 
-  const components: Components = {
-    event: ({ event }) => {
-      // console.log('::props', props);
-      return <CalendarEvent event={event} />;
-    },
+  const components: Components<AltaltiumEvent, object> = {
+    event: (props) => <CalendarEvent event={props.event} />,
   };
 
   return (
-    <div className="h-[43rem] overflow-auto">
+    <div className="h-[47rem] overflow-auto">
       {isLoading ? (
         <div className="flex flex-col h-full">
           <div className="grid grid-cols-3 justify-items-center mb-8">
@@ -87,7 +82,10 @@ export const CalendarComponent = ({
             time: 'Hora',
             event: 'Evento',
             noEventsInRange: 'Sin eventos',
+            showMore: (total) => `+${total} más`,
           }}
+          allDayMaxRows={2}
+          // popup - Preguntarle al Mike cual le agrada mas
         />
       )}
     </div>

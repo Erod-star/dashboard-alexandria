@@ -6,9 +6,10 @@ import { toast } from 'sonner';
 import { getGoogleEvents } from '../actions';
 
 // ? Types
-import type { Event as ReactBCEvent } from 'react-big-calendar';
+import type { AltaltiumEvent } from '../types';
 
 export const useEvents = () => {
+  // TODO: Hacer la query por mes
   const eventsQuery = useQuery({
     queryKey: ['events'],
     queryFn: () => getGoogleEvents(),
@@ -17,13 +18,17 @@ export const useEvents = () => {
 
   const events = eventsQuery.data?.items ?? [];
 
-  const parsedEvents: ReactBCEvent[] = useMemo(
+  const parsedEvents: AltaltiumEvent[] = useMemo(
     () =>
-      events.map((event) => ({
-        title: event.summary,
-        start: new Date(event.start.dateTime),
-        end: new Date(event.end.dateTime),
-      })),
+      events.map((event) => {
+        const summary = event.summary.replace('Altaltium - ', '');
+        return {
+          title: summary,
+          start: new Date(event.start.dateTime),
+          end: new Date(event.end.dateTime),
+          googleData: { ...event, summary },
+        };
+      }),
     [events]
   );
 

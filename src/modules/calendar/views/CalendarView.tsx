@@ -1,24 +1,25 @@
 import { toast } from 'sonner';
+import { useSession } from '@supabase/auth-helpers-react';
 
 // ? Icons
 import { UserPlus } from 'lucide-react';
 
 // ? Components
-import { Button } from '@/components';
+import { Button, Empty } from '@/components';
 import {
   CalendarComponent,
   CalendarGlossary,
   CreateDialogEvent,
+  ModifyEventDialog,
 } from '@/modules/calendar/components';
 
-// ? Hooks
-import { useEvents } from '../hooks';
-
 function CalendarView() {
-  const { parsedEvents, isLoading } = useEvents();
+  const session = useSession();
+  const hasProviderToken = typeof session?.provider_token === 'string';
 
   return (
     <div className="flex flex-col h-full">
+      <ModifyEventDialog />
       <div className="grid grid-cols-4 gap-10 h-full">
         <div className="space-y-10">
           <h2 className="text-4xl font-bold">Calendario</h2>
@@ -28,10 +29,10 @@ function CalendarView() {
 
           <div className="space-y-3">
             <h3 className="text-3xl font-medium">Acciones</h3>
-            <CreateDialogEvent />
+            <CreateDialogEvent disabled={!hasProviderToken} />
             <Button
               className="flex gap-3 text-base font-semibold mt-3 w-full"
-              disabled={isLoading}
+              disabled={!hasProviderToken}
               onClick={() =>
                 toast.info('¡Esta funcionalidad aún no está disponible!')
               }
@@ -42,7 +43,15 @@ function CalendarView() {
         </div>
 
         <div className="col-span-3">
-          <CalendarComponent events={parsedEvents} isLoading={isLoading} />
+          {hasProviderToken ? (
+            <CalendarComponent />
+          ) : (
+            <Empty
+              className="h-[43rem] w-full flex-center flex-col bg-alt-green-900"
+              header="No es posible mostrar los eventos"
+              description="Por favor, inicia sesión con google para mostrar todos tus eventos"
+            />
+          )}
         </div>
       </div>
     </div>

@@ -1,35 +1,66 @@
-import { useState } from 'react';
 import { toast } from 'sonner';
 
-import googleApi from '@/api/googleApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-// ? Types
-import type { GoogleCalendarEvent } from '../types';
+// ? Actions
+import { createEvent, updateEvent, deleteEvent } from '../actions';
 
 export const useEventMutations = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
-  const createEvent = async (event: GoogleCalendarEvent): Promise<void> => {
-    setIsLoading(true);
-    try {
-      await googleApi.post('', JSON.stringify(event));
+  const handleInvalidateQueries = () => {
+    // TODO: Hacer la invalidación de las queries por mes
+    queryClient.invalidateQueries({
+      queryKey: ['events'],
+    });
+  };
+
+  const createMutation = useMutation({
+    mutationFn: createEvent,
+    onSuccess: () => {
       toast.success('¡Evento creado exitosamente!');
-    } catch (error) {
-      console.error('::Error::', error);
+      handleInvalidateQueries();
+    },
+    onError: (error) => {
       toast.error('¡Hubo un error al crear este evento!', {
         description: 'Intentalo más tarde.',
       });
       throw error;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: updateEvent,
+    onSuccess: () => {
+      toast.success('¡Evento editado exitosamente!');
+      handleInvalidateQueries();
+    },
+    onError: (error) => {
+      toast.error('¡Hubo un error al editar este evento!', {
+        description: 'Intentalo más tarde.',
+      });
+      throw error;
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteEvent,
+    onSuccess: () => {
+      toast.success('¡Evento eliminado exitosamente!');
+      handleInvalidateQueries();
+    },
+    onError: (error) => {
+      toast.error('¡Hubo un error al eliminar este evento!', {
+        description: 'Intentalo más tarde.',
+      });
+      throw error;
+    },
+  });
 
   return {
-    // ? Properties
-    isLoading,
-
-    // ? Methods
-    createEvent,
+    // ? Mutations
+    createMutation,
+    updateMutation,
+    deleteMutation,
   };
 };

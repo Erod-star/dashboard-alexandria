@@ -2,6 +2,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { createClient } from '@supabase/supabase-js';
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts';
+
 import App from './App.tsx';
 import './index.css';
 
@@ -25,7 +28,9 @@ createRoot(document.getElementById('root')!).render(
       <EnvErrorView />
     ) : (
       <SessionContextProvider supabaseClient={supabaseClient}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </SessionContextProvider>
     )}
   </StrictMode>
