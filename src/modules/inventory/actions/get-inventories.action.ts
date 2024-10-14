@@ -1,8 +1,8 @@
 import alexandriaApi from '@/api/alexandriaApi';
 
 // ? Types
-import { AlexandriaApiSuccessResponse } from '@/modules/global/types';
-import { Inventory } from '../types';
+import type { AlexandriaApiSuccessResponse } from '@/modules/global/types';
+import type { Inventory } from '../types';
 
 export interface GetInventoriesResponse extends AlexandriaApiSuccessResponse {
   data: Inventory[];

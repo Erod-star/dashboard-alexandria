@@ -8,11 +8,10 @@ import {
 } from '@/modules/inventory/components';
 
 // ? Hooks
-import { useInventories } from '../hooks/useInventories';
+import { useInventories } from '../hooks';
 
 function InventoryView() {
   const navigate = useNavigate();
-
   const { inventories } = useInventories();
 
   return (
