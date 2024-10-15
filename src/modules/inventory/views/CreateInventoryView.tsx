@@ -1,31 +1,26 @@
-import { useState } from 'react';
+// ? Hooks
+import { useInventoryStore } from '../hooks';
 
 // ? Components
 import { InventoryWizard, UploadInventoryFile } from '../components';
 import { Button } from '@/components';
 
 const CreateInventoryView = () => {
-  const [isManualFilling, setIsManualFilling] = useState<boolean>(false);
+  const { currentStep, setCurrentStep } = useInventoryStore();
 
   return (
     <div className="relative w-full h-full border rounded-md p-5">
-      {isManualFilling && (
+      {currentStep !== 0 && (
         <Button
           className="absolute right-5"
           variant="destructive"
-          onClick={() => setIsManualFilling(false)}
+          onClick={() => setCurrentStep(0)}
         >
           Cancelar y generar por archivo
         </Button>
       )}
 
-      {isManualFilling ? (
-        <InventoryWizard />
-      ) : (
-        <UploadInventoryFile
-          onChangeToManualFilling={() => setIsManualFilling(true)}
-        />
-      )}
+      {currentStep !== 0 ? <InventoryWizard /> : <UploadInventoryFile />}
     </div>
   );
 };

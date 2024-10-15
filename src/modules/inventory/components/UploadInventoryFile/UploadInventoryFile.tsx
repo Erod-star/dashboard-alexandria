@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 // ? Utils
 import { cn } from '@/lib/utils';
 
@@ -8,15 +10,14 @@ import { FileUp } from 'lucide-react';
 import { Button, Input, Label, LoadingSpinner, Separator } from '@/components';
 
 // ? Hooks
-import { useInventoryMutations } from '@/modules/inventory/hooks';
+import {
+  useInventoryMutations,
+  useInventoryStore,
+} from '@/modules/inventory/hooks';
 
-interface UploadInventoryFileProps {
-  onChangeToManualFilling: () => void;
-}
-
-export const UploadInventoryFile = ({
-  onChangeToManualFilling,
-}: UploadInventoryFileProps) => {
+export const UploadInventoryFile = () => {
+  const navigate = useNavigate();
+  const { setCurrentStep } = useInventoryStore();
   const { createByFileMutation } = useInventoryMutations();
   const { mutateAsync: createByFile, isPending: isUploadingFile } =
     createByFileMutation;
@@ -32,6 +33,14 @@ export const UploadInventoryFile = ({
 
   return (
     <div className="w-full h-full flex-center flex-col">
+      <Button
+        className="absolute left-5 top-5"
+        disabled={isUploadingFile}
+        onClick={() => navigate('/inventario')}
+      >
+        Regresar a la lista de inventarios
+      </Button>
+
       <h2 className="text-4xl font-semibold mb-10">🏚️ Agregar propiedad</h2>
 
       <section className="flex items-center justify-center w-[55rem] mb-10">
@@ -80,11 +89,11 @@ export const UploadInventoryFile = ({
         </h3>
 
         <div className="flex justify-center gap-4">
-          <Button disabled={isUploadingFile} onClick={onChangeToManualFilling}>
+          <Button disabled={isUploadingFile} onClick={() => setCurrentStep(1)}>
             Propiedad Premium
           </Button>
 
-          <Button disabled={isUploadingFile} onClick={onChangeToManualFilling}>
+          <Button disabled={isUploadingFile} onClick={() => setCurrentStep(1)}>
             Propiedad Classic
           </Button>
         </div>
