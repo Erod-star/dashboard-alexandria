@@ -1,0 +1,24 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    {
+      "column": 115,
+      "color": "#fff"
+    }
+  ],
+  "cSpell.language": "en,es",
+  "cSpell.words": [
+    "Administración",
+    "altaltium",
+    "clsx",
+    "Gerencia",
+    "inventario",
+    "Jurídico",
+    "lucide",
+    "Propiedad",
+    "tailwindcss",
+    "tanstack",
+    "usuarios",
+    "Vendedor"
+  ]
+}

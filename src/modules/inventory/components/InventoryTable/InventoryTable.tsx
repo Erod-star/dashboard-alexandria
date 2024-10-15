@@ -21,6 +21,15 @@ import {
   TableHeader,
   TableRow,
   SearchInput,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  Label,
+  Empty,
 } from '@/components';
 
 interface InventoryTableProps<TData, TValue> {
@@ -34,6 +43,9 @@ export function InventoryTable<TData, TValue>({
 }: InventoryTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [category, setCategory] = useState('all');
+  const [state, setState] = useState('all');
+  const [propertyType, setPropertyType] = useState('all');
 
   const table = useReactTable({
     data,
@@ -52,17 +64,91 @@ export function InventoryTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex items-center pb-4">
-        {/* TODO: Añadir los filtros por los etatus - Video del Fernando god "Filtrar registros" min:4:08 */}
+      <div className="flex gap-5 items-end pb-4">
         <SearchInput
           className="w-[20rem] bg-alt-gray-600 border-gray-400"
           placeholder="Buscar por nombre..."
           value={(table.getColumn('detail')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('detail')?.setFilterValue(event.target.value)
-          }
+          onChange={(event) => {
+            setPropertyType('all');
+            return table
+              .getColumn('detail')
+              ?.setFilterValue(event.target.value);
+          }}
         />
+
+        <div className="flex flex-col justify-center gap-3">
+          <Label className="text-alt-green-300" htmlFor="tipo-de-propiedad">
+            Tipo de propiedad
+          </Label>
+          <Select
+            value={propertyType}
+            onValueChange={(value) => {
+              setPropertyType(value);
+              if (value === 'all') {
+                table.getColumn('detail')?.setFilterValue(null);
+              } else {
+                table.getColumn('detail')?.setFilterValue(value);
+              }
+            }}
+          >
+            <SelectTrigger id="tipo-de-propiedad" className="w-[180px]">
+              <SelectValue placeholder="Todas" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="all">Todas</SelectItem>
+                <SelectItem value="Casa">Casa</SelectItem>
+                <SelectItem value="Departamento">Departamento</SelectItem>
+                <SelectItem value="Condominio">Condominio</SelectItem>
+                <SelectItem value="Nave industrial">Nave industrial</SelectItem>
+                <SelectItem value="Terreno">Terreno</SelectItem>
+                <SelectItem value="Local">Local</SelectItem>
+                <SelectItem value="Oficina">Oficina</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex flex-col justify-center gap-3">
+          <Label className="text-alt-green-300" htmlFor="categoria">
+            Categoría
+          </Label>
+          <Select
+            value={category}
+            onValueChange={(value) => {
+              setCategory(value);
+              if (value === 'all') {
+                table.getColumn('category')?.setFilterValue(null);
+              } else {
+                table.getColumn('category')?.setFilterValue(value);
+              }
+            }}
+          >
+            <SelectTrigger id="categoria" className="w-[180px]">
+              <SelectValue placeholder="Todas" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="all">Todas</SelectItem>
+
+                <SelectLabel>Premium</SelectLabel>
+                <SelectItem value="Cobranza">Cobranza</SelectItem>
+                <SelectItem value="Juicio">Juicio</SelectItem>
+                <SelectItem value="Sentencia">Sentencia</SelectItem>
+                <SelectItem value="Adjudicadas">Adjudicadas</SelectItem>
+
+                <SelectLabel>Classic</SelectLabel>
+                <SelectItem value="Altaltium">Altaltium</SelectItem>
+                <SelectItem value="Preventa">Preventa</SelectItem>
+                <SelectItem value="Consignación">Consignación</SelectItem>
+                <SelectItem value="Banco">Banco</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
+
       <div className="rounded-md border border-alt-green-900 bg-alt-gray-600">
         <Table className="border-b-8 border-alt-green-900">
           <TableHeader>
@@ -108,11 +194,8 @@ export function InventoryTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
+                <TableCell colSpan={columns.length} className="h-24">
+                  <Empty />
                 </TableCell>
               </TableRow>
             )}

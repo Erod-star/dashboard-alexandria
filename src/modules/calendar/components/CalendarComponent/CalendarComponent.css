@@ -1,0 +1,114 @@
+.rbc-calendar {
+  .rbc-toolbar {
+    @apply grid grid-cols-3 justify-items-center gap-4 mb-4 relative h-16;
+
+    .rbc-toolbar-label {
+      @apply relative -top-2 text-3xl font-semibold capitalize;
+      &:before {
+        @apply mr-2;
+        content: '📅';
+      }
+    }
+
+    .rbc-btn-group {
+      @apply relative top-5;
+      button {
+        @apply text-black bg-alt-green-300 text-sm border border-alt-green-900 font-semibold 
+        hover:bg-alt-green-400 active:text-white active:bg-alt-green-400 active:border-alt-green-900;
+        transition: background-color 0.3s;
+      }
+    }
+  }
+
+  /* ? ----------------- Month View ----------------- */
+  .rbc-month-view {
+    .rbc-month-header {
+      .rbc-header {
+        @apply p-2 text-lg capitalize font-normal text-white;
+      }
+    }
+
+    .rbc-month-row {
+      .rbc-row-bg {
+        .rbc-off-range-bg {
+          @apply bg-alt-green-700/80;
+        }
+        .rbc-today {
+          @apply bg-alt-green-50;
+        }
+      }
+      .rbc-row-content {
+        .rbc-row {
+          .rbc-date-cell {
+            .rbc-button-link {
+              @apply text-sm;
+            }
+          }
+          .rbc-date-cell.rbc-current {
+            button {
+              @apply text-black py-1 px-2 my-0.5 bg-alt-green-300 rounded-full;
+            }
+          }
+          .rbc-off-range {
+            @apply text-white/55;
+          }
+          .rbc-now,
+          .rbc-current {
+            @apply text-black;
+          }
+          .rbc-row-segment {
+            .rbc-event {
+              @apply bg-transparent text-white px-2 h-7;
+              .calendar-event-btn {
+                @apply w-full;
+              }
+            }
+            .rbc-show-more {
+              @apply mx-2 mt-1 px-3 py-1 bg-alt-green-300 text-alt-green-800 justify-end rounded-sm;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* ? ----------------- Day View ----------------- */
+  .rbc-time-view {
+    .rbc-time-header {
+      @apply invisible h-0;
+    }
+
+    .rbc-time-content {
+      .rbc-time-gutter {
+        @apply text-sm text-white;
+      }
+      .rbc-time-column.rbc-time-gutter {
+        .rbc-timeslot-group {
+          @apply p-3 py-5;
+        }
+      }
+
+      .rbc-day-slot {
+        .rbc-timeslot-group {
+          @apply bg-alt-green-900 py-[1.83rem] border-none;
+        }
+      }
+
+      .rbc-events-container {
+        .rbc-event {
+          @apply flex items-center bg-alt-green-600 border-black cursor-default;
+
+          .rbc-event-label {
+            @apply font-semibold;
+          }
+          .rbc-event-content {
+            @apply flex items-center justify-between w-full px-2;
+            .calendar-event-btn {
+              @apply w-full;
+            }
+          }
+        }
+      }
+    }
+  }
+}

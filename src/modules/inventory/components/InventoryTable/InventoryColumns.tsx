@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { House, MoreHorizontal, Building2, ArrowUpDown } from 'lucide-react';
 
 // ? Components
+import { HandleImages } from '../HandleImages';
 import {
   Badge,
   Button,
@@ -18,22 +19,10 @@ import {
 // ? Helpers
 import { formatToMxn } from '@/helpers';
 
-// TODO: Replace this with the correct type once that Mike provides the real data
-export type Property = {
-  id: string;
-  photos: string[];
-  name: string;
-  category: 'Premium' | 'Build';
-  type: 'Casa' | 'Departamento';
-  totalSpace: number;
-  totalBuildedSpace: number;
-  dateOfRegistration: string;
-  commercialValue: number;
-  finishValue: number;
-  availability: 'Disponible' | 'Apartada' | 'Vendida';
-};
+// ? Types
+import { Inventory } from '../../types';
 
-export const inventoryColumns: ColumnDef<Property>[] = [
+export const inventoryColumns: ColumnDef<Inventory>[] = [
   {
     id: 'photos',
     accessorKey: 'photos',
@@ -47,23 +36,9 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     ),
     cell: ({ row }) => {
       const property = row.original;
-
-      return (
-        <div className="flex-center flex-col gap-2">
-          <img
-            src={property.photos[0]}
-            alt={property.name}
-            className="size-20 object-cover rounded-md"
-          />
-          <div className="flex gap-1">
-            <div className="size-6 rounded-md bg-red-200" />
-            <div className="size-6 rounded-md bg-red-200" />
-            <div className="size-6 rounded-md bg-red-200 text-xs flex-center text-black font-semibold">
-              +2
-            </div>
-          </div>
-        </div>
-      );
+      // TODO: Arreglar esto una vez que se tenga la estructura correcta
+      const imgs = property.fotosUrls || '';
+      return <HandleImages images={[imgs]} />;
     },
   },
   {
@@ -86,22 +61,38 @@ export const inventoryColumns: ColumnDef<Property>[] = [
 
       return (
         <div>
-          <p className="font-bold text-2xl mb-1">{property.name}</p>
+          <p className="font-bold text-xl mb-1">{property.calleYNumero}</p>
           <div className="text-base flex items-center gap-1  mb-3 text-alt-green-300">
-            {property.type === 'Departamento' ? (
+            {property.tipoPropiedad === 'Departamento' ? (
               <Building2 className="size-4" />
             ) : (
               <House className="size-4" />
             )}
-            <p> {property.type} </p>
+            <p> {property.tipoPropiedad} </p>
           </div>
 
-          <p className="text-sm font-semibold">
-            Registrado el{' '}
-            <span className="text-alt-green-300">
-              {property.dateOfRegistration}
-            </span>
+          {/* // TODO: All hacer click debera copiar el link del google maps si existe */}
+          <p className="text-sm font-semibold text-gray-300">
+            {property.colonia}, {property.municipio}, {property.estado}, #
+            {property.cp}
           </p>
+        </div>
+      );
+    },
+  },
+  {
+    id: 'status',
+    accessorKey: 'status',
+    header: () => <div className="text-center">Detalle</div>,
+    cell: ({ row }) => {
+      const property = row.original;
+      return (
+        <div className="flex-center">
+          <ul>
+            <li>Recamaras</li>
+            <li>Sanitarios</li>
+            <li>Estacionamientos</li>
+          </ul>
         </div>
       );
     },
@@ -110,53 +101,24 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     id: 'category',
     accessorKey: 'category',
     header: () => <div className="text-center">Categoría</div>,
-    cell: ({ row }) => (
-      <div className="flex-center">
-        <Badge className="bg-alt-green-300 text-alt-green-900">
-          {row.getValue('category')}
-        </Badge>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const property = row.original;
+      return (
+        <div className="flex-center">
+          <Badge className="bg-alt-green-300 text-alt-green-900">
+            {property.etapa}
+          </Badge>
+        </div>
+      );
+    },
   },
   {
     id: 'availability',
     accessorKey: 'availability',
-    header: () => <div className="text-center">Estado</div>,
+    header: () => <div className="text-center">Lista</div>,
     cell: ({ row }) => {
-      switch (row.original.availability) {
-        case 'Disponible':
-          return (
-            <div className="flex-center font-medium">
-              <Badge className="" variant="danger">
-                {row.getValue('availability')}
-              </Badge>
-            </div>
-          );
-        case 'Apartada':
-          return (
-            <div className="flex-center font-medium">
-              <Badge className="font-medium" variant="warning">
-                {row.getValue('availability')}
-              </Badge>
-            </div>
-          );
-        case 'Vendida':
-          return (
-            <div className="flex-center font-medium">
-              <Badge className="font-medium" variant="success">
-                {row.getValue('availability')}
-              </Badge>
-            </div>
-          );
-        default:
-          return (
-            <div className="flex-center font-medium">
-              <Badge className="font-medium" variant="success">
-                {row.getValue('availability')}
-              </Badge>
-            </div>
-          );
-      }
+      const property = row.original;
+      return <div className="flex-center">{property.lista}</div>;
     },
   },
   {
@@ -164,23 +126,25 @@ export const inventoryColumns: ColumnDef<Property>[] = [
     accessorKey: 'commercialValue',
     header: () => <div className="text-center">Valor comercial</div>,
     cell: ({ row }) => {
-      const commercialValue = parseFloat(row.getValue('commercialValue'));
+      const property = row.original;
+      const firstPayment = property.primerPago || 0;
+      const secondPayment = property.segundoPago || 0;
+      // TODO: Solo las propiedades classic tienen un unico pago, las demas tienen 2 a buebo
       return (
-        <div className="text-center font-medium">
-          {formatToMxn(commercialValue)}
-        </div>
-      );
-    },
-  },
-  {
-    id: 'finishValue',
-    accessorKey: 'finishValue',
-    header: () => <div className="text-center">Valor remate</div>,
-    cell: ({ row }) => {
-      const finishValue = parseFloat(row.getValue('finishValue'));
-      return (
-        <div className="text-center font-medium">
-          {formatToMxn(finishValue)}
+        <div className="text-center">
+          <p className="flex">
+            Primer pago:{' '}
+            <span className="text-alt-green-300">
+              {formatToMxn(firstPayment)}
+            </span>
+          </p>
+
+          <p className="flex">
+            Segundo pago:{' '}
+            <span className="text-alt-green-300">
+              {formatToMxn(secondPayment)}
+            </span>
+          </p>
         </div>
       );
     },
@@ -192,17 +156,14 @@ export const inventoryColumns: ColumnDef<Property>[] = [
       const property = row.original;
 
       return (
-        <div className="flex-center flex-col font-medium text-sm">
+        <div className="flex justify-start flex-col font-medium text-sm">
           <p>
             Total:{' '}
-            <span className="text-alt-green-300">{property.totalSpace}</span> m²
+            <span className="text-alt-green-300">{property.terreno}</span> m²
           </p>
-
           <p>
-            Construido:{' '}
-            <span className="text-alt-green-300">
-              {property.totalBuildedSpace}
-            </span>{' '}
+            Contruido:{' '}
+            <span className="text-alt-green-300">{property.construccion}</span>{' '}
             m²
           </p>
         </div>
@@ -211,11 +172,12 @@ export const inventoryColumns: ColumnDef<Property>[] = [
   },
   {
     id: 'actions',
+    header: () => <div className="flex-center">Acciones</div>,
     cell: () => (
-      <div className="max-w-[30px] px-2">
+      <div className="px-2 flex-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>

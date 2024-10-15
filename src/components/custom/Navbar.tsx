@@ -1,7 +1,7 @@
 import { NavLink, Link } from 'react-router-dom';
 
 // ? Components
-import { Avatar, AvatarFallback, AvatarImage } from '@/components';
+import { UserDropdownMenu } from '@/components';
 
 // ? Images
 import AltaltiumLogo from '@/assets/logo-altaltium.svg';
@@ -22,10 +22,7 @@ export const Navbar = () => {
         <NavLink to="usuarios">Usuarios</NavLink>
       </nav>
 
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <UserDropdownMenu />
     </header>
   );
 };

@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "imgildev.vscode-auto-barrel",
+    "formulahendry.auto-close-tag",
+    "aaron-bond.better-comments",
+    "streetsidesoftware.code-spell-checker",
+    "naumovs.color-highlight",
+    "wallabyjs.console-ninja",
+    "clinyong.vscode-css-modules",
+    "usernamehw.errorlens",
+    "eamodio.gitlens",
+    "oderwat.indent-rainbow",
+    "yoavbls.pretty-ts-errors"
+  ]
+}

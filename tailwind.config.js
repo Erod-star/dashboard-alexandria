@@ -31,7 +31,7 @@ export default {
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          foreground: '#a3a3a3',
         },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
@@ -52,9 +52,20 @@ export default {
           5: 'hsl(var(--chart-5))',
         },
         // ? Custom colors
+        // * Red
+        'alt-red-400': '#FF7878',
+
         // * Green
-        'alt-green-300': '#AAFFE3',
-        'alt-green-900': '#131D1F',
+        'alt-green-50': '#e5fffa',
+        'alt-green-100': '#ccfff5',
+        'alt-green-200': '#b3ffef',
+        'alt-green-300': '#AAFFE3', // Validated
+        'alt-green-400': '#82bfab', // Validated
+        'alt-green-500': '#66a28e',
+        'alt-green-600': '#4d8471',
+        'alt-green-700': '#336654',
+        'alt-green-800': '#1a4937',
+        'alt-green-900': '#131D1F', // Validated
 
         // * Slate
         'alt-gray-600': '#2D363B',

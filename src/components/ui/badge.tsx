@@ -23,6 +23,8 @@ const badgeVariants = cva(
           'bg-amber-300 border-amber-800 text-amber-950 px-3 py-1 shadow-md',
         danger: 'bg-red-400 border-red-950 text-black px-3 py-1 shadow-md',
         base: '',
+        // ? Departments
+        vendedor: 'bg-alt-green-300 text-black border-none shadow-sm',
       },
     },
     defaultVariants: {
