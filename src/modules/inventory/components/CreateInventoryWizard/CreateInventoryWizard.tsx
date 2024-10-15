@@ -7,7 +7,7 @@ import { Step2 } from './Step2';
 import { Step3 } from './Step3';
 import { Step4 } from './Step4';
 
-export const CreateInventoryWizzard = () => {
+export const CreateInventoryWizard = () => {
   const [step, setStep] = useState(1);
   const [title, setTitle] = useState('Ingresa la dirección de la propiedad');
   const [progress, setProgress] = useState(0);
