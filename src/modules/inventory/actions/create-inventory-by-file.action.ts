@@ -3,9 +3,15 @@ import alexandriaApi from '@/api/alexandriaApi';
 // ? Types
 import type { Inventory } from '../types';
 
-export const createInventoryByFile = async (file: File): Promise<void> => {
+interface CreateInventoryByFileResponse {
+  data: Inventory[];
+}
+
+export const createInventoryByFile = async (
+  file: File
+): Promise<CreateInventoryByFileResponse> => {
   try {
-    const { data } = await alexandriaApi.post(
+    const { data } = await alexandriaApi.post<CreateInventoryByFileResponse>(
       '/inventory/batch',
       {
         file,
@@ -16,7 +22,7 @@ export const createInventoryByFile = async (file: File): Promise<void> => {
         },
       }
     );
-    console.log('::data', data);
+    return data;
   } catch (error) {
     throw new Error('⚠️ Error al crear el inventario por medio de un archivo');
   }

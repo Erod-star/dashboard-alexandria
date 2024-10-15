@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 // ? Hooks
 import { useInventoryStore } from '../hooks';
 
@@ -6,7 +8,11 @@ import { InventoryWizard, UploadInventoryFile } from '../components';
 import { Button } from '@/components';
 
 const CreateInventoryView = () => {
-  const { currentStep, setCurrentStep } = useInventoryStore();
+  const { currentStep, resetInventoryWizzard } = useInventoryStore();
+
+  useEffect(() => {
+    resetInventoryWizzard();
+  }, []);
 
   return (
     <div className="relative w-full h-full border rounded-md p-5">
@@ -14,7 +20,7 @@ const CreateInventoryView = () => {
         <Button
           className="absolute right-5"
           variant="destructive"
-          onClick={() => setCurrentStep(0)}
+          onClick={resetInventoryWizzard}
         >
           Cancelar y generar por archivo
         </Button>

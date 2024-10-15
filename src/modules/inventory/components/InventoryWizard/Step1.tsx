@@ -14,41 +14,32 @@ import {
   Input,
 } from '@/components';
 
-const textField = z
-  .string()
-  .min(2, { message: 'Por favor ingresa minímo 2 caracteres' })
-  .max(115, { message: 'Por favor ingresa un máximo de 100 caracteres' })
-  .trim();
+// ? Hooks
+import { useInventoryStore } from '../../hooks';
 
-const formSchema = z.object({
-  street: textField,
-  city: textField,
-  state: textField,
-  colony: textField,
-  zipCode: z
-    .string()
-    .regex(/^\d{5}(-\d{4})?$/, 'Debe ser un código postal válido'),
-  gMapsLink: z.string().url('Debe ser un enlace válido').optional(),
-});
+// ? Schemas
+import { addressSchema } from '@/modules/global/schemas';
 
 interface Step1Props {
   onNextStep: () => void;
 }
 
 export const Step1 = ({ onNextStep }: Step1Props) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { wizzardAddress } = useInventoryStore();
+
+  const form = useForm<z.infer<typeof addressSchema>>({
+    resolver: zodResolver(addressSchema),
     defaultValues: {
-      city: '',
-      gMapsLink: '',
-      state: '',
-      street: '',
-      zipCode: '',
-      colony: '',
+      calleYNumero: wizzardAddress?.calleYNumero || '',
+      colonia: wizzardAddress?.colonia || '',
+      estado: wizzardAddress?.estado || '',
+      municipio: wizzardAddress?.municipio || '',
+      cp: wizzardAddress?.cp?.toString() || '',
+      googleMaps: wizzardAddress?.googleMaps || '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof addressSchema>) {
     // TODO: Do something with the form values.
     console.log(values);
     onNextStep();
@@ -60,7 +51,7 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
         <div className="flex gap-5">
           <FormField
             control={form.control}
-            name="street"
+            name="calleYNumero"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Calle y número</FormLabel>
@@ -74,7 +65,7 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
 
           <FormField
             control={form.control}
-            name="colony"
+            name="colonia"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Colonia</FormLabel>
@@ -90,7 +81,7 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
         <div className="flex gap-5">
           <FormField
             control={form.control}
-            name="state"
+            name="estado"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Estado</FormLabel>
@@ -104,7 +95,7 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
 
           <FormField
             control={form.control}
-            name="city"
+            name="municipio"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Alcaldía / Municipio</FormLabel>
@@ -118,7 +109,7 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
 
           <FormField
             control={form.control}
-            name="zipCode"
+            name="cp"
             render={({ field }) => (
               <FormItem className="w-2/5">
                 <FormLabel>Código postal</FormLabel>
@@ -139,7 +130,7 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
         <div>
           <FormField
             control={form.control}
-            name="gMapsLink"
+            name="googleMaps"
             render={({ field }) => (
               <FormItem className="w-2/3">
                 <FormLabel>Link Google Maps</FormLabel>
