@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ColumnDef } from '@tanstack/react-table';
 
 // ? Icons

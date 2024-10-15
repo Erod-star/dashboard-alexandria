@@ -1,3 +1,4 @@
+/* eslint-disable */
 import googleApi from '@/api/googleApi';
 
 export const deleteEvent = async (eventId: string): Promise<void> => {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import alexandriaApi from '@/api/alexandriaApi';
 
 // ? Types

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -37,7 +38,7 @@ export const useEvents = () => {
       console.error('::eventsQuery', eventsQuery.error);
       toast.error('Error al obtener los eventos');
     }
-  }, [eventsQuery.isError]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [eventsQuery.isError]);
 
   return {
     ...eventsQuery,

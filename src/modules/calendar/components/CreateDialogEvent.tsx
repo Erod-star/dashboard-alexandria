@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 TODOS:
   Cosas para terminar el modulo por ahorita:

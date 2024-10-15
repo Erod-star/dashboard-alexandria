@@ -18,7 +18,6 @@ const [{ SUPABASE_URL, ANON_PUBLIC }, { hasError, missingVariables }] =
 const supabaseClient = createClient(SUPABASE_URL, ANON_PUBLIC);
 
 if (missingVariables.length > 0) {
-  // eslint-disable-next-line no-console
   console.error('::Warning, missing env variables:', missingVariables);
 }
 
