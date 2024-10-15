@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 import {
   ColumnDef,
@@ -10,7 +10,7 @@ import {
   getPaginationRowModel,
   SortingState,
   getSortedRowModel,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
 import {
   Button,
@@ -30,7 +30,7 @@ import {
   SelectValue,
   Label,
   Empty,
-} from "@/components";
+} from '@/components';
 
 interface InventoryTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -43,9 +43,9 @@ export function InventoryTable<TData, TValue>({
 }: InventoryTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [category, setCategory] = useState("all");
-  const [state, setState] = useState("all");
-  const [propertyType, setPropertyType] = useState("all");
+  const [category, setCategory] = useState('all');
+  const [state, setState] = useState('all');
+  const [propertyType, setPropertyType] = useState('all');
 
   const table = useReactTable({
     data,
@@ -68,11 +68,11 @@ export function InventoryTable<TData, TValue>({
         <SearchInput
           className="w-[20rem] bg-alt-gray-600 border-gray-400"
           placeholder="Buscar por nombre..."
-          value={(table.getColumn("detail")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn('detail')?.getFilterValue() as string) ?? ''}
           onChange={(event) => {
-            setPropertyType("all");
+            setPropertyType('all');
             return table
-              .getColumn("detail")
+              .getColumn('detail')
               ?.setFilterValue(event.target.value);
           }}
         />
@@ -85,10 +85,10 @@ export function InventoryTable<TData, TValue>({
             value={propertyType}
             onValueChange={(value) => {
               setPropertyType(value);
-              if (value === "all") {
-                table.getColumn("detail")?.setFilterValue(null);
+              if (value === 'all') {
+                table.getColumn('detail')?.setFilterValue(null);
               } else {
-                table.getColumn("detail")?.setFilterValue(value);
+                table.getColumn('detail')?.setFilterValue(value);
               }
             }}
           >
@@ -118,10 +118,10 @@ export function InventoryTable<TData, TValue>({
             value={category}
             onValueChange={(value) => {
               setCategory(value);
-              if (value === "all") {
-                table.getColumn("category")?.setFilterValue(null);
+              if (value === 'all') {
+                table.getColumn('category')?.setFilterValue(null);
               } else {
-                table.getColumn("category")?.setFilterValue(value);
+                table.getColumn('category')?.setFilterValue(value);
               }
             }}
           >
@@ -136,43 +136,13 @@ export function InventoryTable<TData, TValue>({
                 <SelectItem value="Cobranza">Cobranza</SelectItem>
                 <SelectItem value="Juicio">Juicio</SelectItem>
                 <SelectItem value="Sentencia">Sentencia</SelectItem>
-                <SelectItem value="Adjudicada">Adjudicada</SelectItem>
+                <SelectItem value="Adjudicadas">Adjudicadas</SelectItem>
 
                 <SelectLabel>Classic</SelectLabel>
                 <SelectItem value="Altaltium">Altaltium</SelectItem>
                 <SelectItem value="Preventa">Preventa</SelectItem>
                 <SelectItem value="Consignación">Consignación</SelectItem>
                 <SelectItem value="Banco">Banco</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="flex flex-col justify-center gap-3">
-          <Label className="text-alt-green-300" htmlFor="estado">
-            Estado
-          </Label>
-          <Select
-            value={state}
-            onValueChange={(value) => {
-              setState(value);
-              if (value === "all") {
-                table.getColumn("availability")?.setFilterValue(null);
-              } else {
-                table.getColumn("availability")?.setFilterValue(value);
-              }
-            }}
-          >
-            <SelectTrigger id="estado" className="w-[180px]">
-              <SelectValue placeholder="Todas" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Estado</SelectLabel>
-                <SelectItem value="all">Todos</SelectItem>
-                <SelectItem value="Disponible">Disponible</SelectItem>
-                <SelectItem value="Apartada">Apartada</SelectItem>
-                <SelectItem value="Vendida">Vendida</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -204,14 +174,14 @@ export function InventoryTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => {
                     const cellId = cell.column.columnDef.id;
                     return (
                       <TableCell
                         key={cell.id}
-                        className={cellId === "actions" ? "p-0 px-4" : ""}
+                        className={cellId === 'actions' ? 'p-0 px-4' : ''}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
