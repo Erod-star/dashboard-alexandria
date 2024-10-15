@@ -1,6 +1,3 @@
-// ? Types
-import type { Property } from '@/modules/inventory/interfaces';
-
 export interface Lead {
   id: string;
   name: string;
@@ -8,5 +5,5 @@ export interface Lead {
   phone: string;
   since: string;
   reason: string;
-  properties: Property[];
+  properties: any[];
 }

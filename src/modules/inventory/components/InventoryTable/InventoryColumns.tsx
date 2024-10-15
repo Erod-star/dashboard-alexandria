@@ -85,8 +85,7 @@ export const inventoryColumns: ColumnDef<Inventory>[] = [
     id: 'status',
     accessorKey: 'status',
     header: () => <div className="text-center">Detalle</div>,
-    cell: ({ row }) => {
-      const property = row.original;
+    cell: () => {
       return (
         <div className="flex-center">
           <ul>

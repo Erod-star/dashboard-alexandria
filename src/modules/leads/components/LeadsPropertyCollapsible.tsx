@@ -4,11 +4,8 @@ import { House } from 'lucide-react';
 // ? Components
 import { TableCell, TableRow } from '@/components';
 
-// ? Types
-import type { Property } from '@/modules/inventory/interfaces';
-
 interface LeadsPropertyCollapsibleProps {
-  properties: Property[];
+  properties: any[];
 }
 
 export const LeadsPropertyCollapsible = ({

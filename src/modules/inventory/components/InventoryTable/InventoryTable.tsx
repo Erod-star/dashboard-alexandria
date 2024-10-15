@@ -45,7 +45,6 @@ export function InventoryTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [category, setCategory] = useState('all');
-  const [state, setState] = useState('all');
   const [propertyType, setPropertyType] = useState('all');
 
   const table = useReactTable({
