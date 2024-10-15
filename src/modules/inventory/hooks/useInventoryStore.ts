@@ -19,6 +19,14 @@ export const useInventoryStore = () => {
     dispatch(resetInventoryWizzardSlice());
   };
 
+  const setNextStep = () => {
+    dispatch(setCurrentStepSlice(currentStep + 1));
+  };
+
+  const setPreviousStep = () => {
+    dispatch(setCurrentStepSlice(currentStep - 1));
+  };
+
   const setCurrentStep = (step: number) => {
     dispatch(setCurrentStepSlice(step));
   };
@@ -33,8 +41,10 @@ export const useInventoryStore = () => {
     wizzardAddress,
 
     // ? Methods
-    setCurrentStep,
     resetInventoryWizzard,
+    setCurrentStep,
     setInventoryWizzardAddress,
+    setNextStep,
+    setPreviousStep,
   };
 };

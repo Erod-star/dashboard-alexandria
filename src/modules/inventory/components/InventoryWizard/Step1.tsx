@@ -20,12 +20,9 @@ import { useInventoryStore } from '../../hooks';
 // ? Schemas
 import { addressSchema } from '@/modules/global/schemas';
 
-interface Step1Props {
-  onNextStep: () => void;
-}
-
-export const Step1 = ({ onNextStep }: Step1Props) => {
-  const { wizzardAddress } = useInventoryStore();
+export const Step1 = () => {
+  const { wizzardAddress, setNextStep, setInventoryWizzardAddress } =
+    useInventoryStore();
 
   const form = useForm<z.infer<typeof addressSchema>>({
     resolver: zodResolver(addressSchema),
@@ -39,11 +36,16 @@ export const Step1 = ({ onNextStep }: Step1Props) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof addressSchema>) {
-    // TODO: Do something with the form values.
-    console.log(values);
-    onNextStep();
-  }
+  const onSubmit = (formData: z.infer<typeof addressSchema>) => {
+    const { cp, googleMaps, ...rest } = formData;
+    setInventoryWizzardAddress({
+      ...rest,
+      cp: parseInt(cp),
+      googleMaps: googleMaps || null,
+    });
+
+    setNextStep();
+  };
 
   return (
     <Form {...form}>

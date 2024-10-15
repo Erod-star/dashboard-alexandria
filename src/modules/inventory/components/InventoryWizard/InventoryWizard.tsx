@@ -7,34 +7,30 @@ import { Step2 } from './Step2';
 import { Step3 } from './Step3';
 import { Step4 } from './Step4';
 
+// ? Hooks
+import { useInventoryStore } from '@/modules/inventory/hooks';
+
 export const InventoryWizard = () => {
-  const [step, setStep] = useState(1);
+  const { currentStep } = useInventoryStore();
+
   const [title, setTitle] = useState('Ingresa la dirección de la propiedad');
   const [progress, setProgress] = useState(0);
 
-  const handleNextStep = () => {
-    setStep(step + 1);
-  };
-
-  const handlePreviousStep = () => {
-    setStep(step - 1);
-  };
-
   useEffect(() => {
-    if (step === 1) {
+    if (currentStep === 1) {
       setProgress(20);
       setTitle('Ingresa la dirección de la propiedad');
-    } else if (step === 2) {
+    } else if (currentStep === 2) {
       setProgress(45);
       setTitle('Ingresa los detalles de la propiedad');
-    } else if (step === 3) {
+    } else if (currentStep === 3) {
       setProgress(75);
       setTitle('Ingresa los detalles del pago');
-    } else if (step === 4) {
+    } else if (currentStep === 4) {
       setProgress(95);
       setTitle('Antes de concluir por favor revisa los datos');
     }
-  }, [step]);
+  }, [currentStep]);
 
   useEffect(() => {
     const timer = setTimeout(() => setProgress(20), 500);
@@ -56,20 +52,10 @@ export const InventoryWizard = () => {
       </div>
 
       <div className="mt-8 h-full relative">
-        {step === 1 && <Step1 onNextStep={handleNextStep} />}
-        {step === 2 && (
-          <Step2
-            onNextStep={handleNextStep}
-            onPreviousStep={handlePreviousStep}
-          />
-        )}
-        {step === 3 && (
-          <Step3
-            onNextStep={handleNextStep}
-            onPreviousStep={handlePreviousStep}
-          />
-        )}
-        {step === 4 && <Step4 />}
+        {currentStep === 1 && <Step1 />}
+        {currentStep === 2 && <Step2 />}
+        {currentStep === 3 && <Step3 />}
+        {currentStep === 4 && <Step4 />}
       </div>
     </div>
   );
