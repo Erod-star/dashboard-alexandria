@@ -23,69 +23,61 @@ import {
   TabNumbers,
 } from '@/components';
 
-const formSchema = z.object({
-  category: z
-    .string()
-    .min(1, { message: 'Por favor selecciona una categoría' })
-    .trim(),
-  propertyType: z
-    .string()
-    .min(1, { message: 'Por favor selecciona un tipo de propiedad' })
-    .trim(),
-  rooms: z
-    .string()
-    .min(1, { message: 'Por favor selecciona la cantidad de habitaciones' })
-    .trim(),
-  bathRooms: z
-    .string()
-    .min(1, { message: 'Por favor selecciona la cantidad de baños' })
-    .trim(),
-  parkings: z
-    .string()
-    .min(1, { message: 'Por favor selecciona la cantidad de estacionamientos' })
-    .trim(),
-  totalArea: z
-    .string()
-    .min(1, { message: 'Por favor introduce la superficie total' })
-    .trim(),
-  builtArea: z
-    .string()
-    .min(1, { message: 'Por favor introduce la superficie construida' })
-    .trim(),
-});
+// ? Hooks
+import { useInventoryStore } from '../../hooks';
 
-interface Step2Props {
-  onNextStep: () => void;
-  onPreviousStep: () => void;
-}
+// ? Schemas
+import { inventoryDetailsSchema } from '../../schemas';
 
-export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+export const Step2 = () => {
+  const {
+    setPreviousStep,
+    setNextStep,
+    wizardDetails,
+    setInventoryWizardDetails,
+  } = useInventoryStore();
+
+  const form = useForm<z.infer<typeof inventoryDetailsSchema>>({
+    resolver: zodResolver(inventoryDetailsSchema),
     defaultValues: {
-      propertyType: '',
-      category: '',
-      rooms: '',
-      bathRooms: '',
-      parkings: '',
-      totalArea: '',
-      builtArea: '',
+      folioOriginal: wizardDetails?.folioOriginal || '',
+      lista: wizardDetails?.lista || '',
+      tipoPropiedad: wizardDetails?.tipoPropiedad || '',
+      recamaras: wizardDetails?.recamaras?.toString() || '',
+      sanitarios: wizardDetails?.sanitarios?.toString() || '',
+      estacionamientos: wizardDetails?.estacionamientos?.toString() || '',
+      terreno: wizardDetails?.terreno?.toString() || '',
+      construccion: wizardDetails?.construccion?.toString() || '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // TODO: Do something with the form values.
-    console.log(values);
-    onNextStep();
-  }
+  const onSubmit = (formData: z.infer<typeof inventoryDetailsSchema>) => {
+    const {
+      estacionamientos,
+      recamaras,
+      sanitarios,
+      terreno,
+      construccion,
+      ...rest
+    } = formData;
+    setInventoryWizardDetails({
+      ...rest,
+      estacionamientos: Number(estacionamientos),
+      recamaras: Number(recamaras),
+      sanitarios: Number(sanitarios),
+      terreno: Number(terreno),
+      construccion: Number(construccion),
+    });
+    setNextStep();
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex gap-5">
           <FormField
             control={form.control}
-            name="category"
+            name="lista"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Categoría</FormLabel>
@@ -122,7 +114,7 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
 
           <FormField
             control={form.control}
-            name="propertyType"
+            name="tipoPropiedad"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Tipo de propiedad</FormLabel>
@@ -153,11 +145,25 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
           />
         </div>
 
+        <FormField
+          control={form.control}
+          name="folioOriginal"
+          render={({ field }) => (
+            <FormItem className="w-1/2">
+              <FormLabel>Folio</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="123@#21312" type="text" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="grid grid-cols-3 gap-5">
           <div className="space-y-7 justify-center justify-self-center mx-auto">
             <FormField
               control={form.control}
-              name="rooms"
+              name="recamaras"
               render={({ field }) => (
                 <TabNumbers
                   label="Habitaciones"
@@ -169,7 +175,7 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
 
             <FormField
               control={form.control}
-              name="bathRooms"
+              name="sanitarios"
               render={({ field }) => (
                 <TabNumbers
                   label="Baños"
@@ -181,7 +187,7 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
 
             <FormField
               control={form.control}
-              name="parkings"
+              name="estacionamientos"
               render={({ field }) => (
                 <TabNumbers
                   label="Estacionamientos"
@@ -198,7 +204,7 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
 
             <FormField
               control={form.control}
-              name="totalArea"
+              name="terreno"
               render={({ field }) => (
                 <FormItem className="mb-4 w-2/3">
                   <FormLabel>Terreno total</FormLabel>
@@ -212,7 +218,7 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
 
             <FormField
               control={form.control}
-              name="builtArea"
+              name="construccion"
               render={({ field }) => (
                 <FormItem className="w-2/3">
                   <FormLabel>Terreno construido</FormLabel>
@@ -227,7 +233,7 @@ export const Step2 = ({ onNextStep, onPreviousStep }: Step2Props) => {
         </div>
 
         <div className="absolute bottom-0 right-0 flex gap-5">
-          <Button type="button" onClick={onPreviousStep}>
+          <Button type="button" onClick={setPreviousStep}>
             Anterior
           </Button>
           <Button type="submit">Siguiente</Button>

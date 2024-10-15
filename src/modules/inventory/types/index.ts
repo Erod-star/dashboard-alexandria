@@ -1,7 +1,5 @@
 export interface Inventory {
   inventoryId: string;
-  lista: string;
-  folioOriginal: string;
 
   // ? Direccion
   calleYNumero: string;
@@ -11,15 +9,23 @@ export interface Inventory {
   cp: number | null;
   googleMaps: string | null;
 
+  // ? Detalles
+  folioOriginal: string;
+  lista: string;
+  tipoPropiedad: string | null;
+  recamaras: number | null;
+  sanitarios: number | null;
+  estacionamientos: number | null;
+  terreno: number | null;
+  construccion: number | null;
+
   acreedor: string | null;
   alrededores: string | null;
   calificacion: string | null;
   cesion: string | null;
-  construccion: number | null;
   contingencia: string | null;
   deudor: string | null;
   direccionOriginal: string | null;
-  estacionamientos: number | null;
   estadoDeVivienda: string | null;
   estadoProcesal: string | null;
   etapa: string | null;
@@ -32,11 +38,7 @@ export interface Inventory {
   latitud: string | null;
   longitud: string | null;
   primerPago: number | null;
-  recamaras: number | null;
-  sanitarios: number | null;
   segundoPago: number | null;
-  terreno: number | null;
-  tipoPropiedad: string | null;
   total: number | null;
   ultimaActualizacion: string | null;
   valorAproximado: number | null;
@@ -53,4 +55,15 @@ export interface InventoryAddress {
   municipio: string | null;
   cp: number | null;
   googleMaps: string | null;
+}
+
+export interface InventoryDetails {
+  folioOriginal: string;
+  lista: string;
+  tipoPropiedad: string | null;
+  recamaras: number | null;
+  sanitarios: number | null;
+  estacionamientos: number | null;
+  terreno: number | null;
+  construccion: number | null;
 }

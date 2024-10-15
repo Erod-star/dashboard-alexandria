@@ -8,10 +8,10 @@ import { InventoryWizard, UploadInventoryFile } from '../components';
 import { Button } from '@/components';
 
 const CreateInventoryView = () => {
-  const { currentStep, resetInventoryWizzard } = useInventoryStore();
+  const { currentStep, resetInventoryWizard } = useInventoryStore();
 
   useEffect(() => {
-    resetInventoryWizzard();
+    resetInventoryWizard();
   }, []);
 
   return (
@@ -20,7 +20,7 @@ const CreateInventoryView = () => {
         <Button
           className="absolute right-5"
           variant="destructive"
-          onClick={resetInventoryWizzard}
+          onClick={resetInventoryWizard}
         >
           Cancelar y generar por archivo
         </Button>

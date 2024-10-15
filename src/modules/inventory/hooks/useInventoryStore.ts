@@ -2,21 +2,22 @@
 import { useAppDispatch, useAppSelector } from '@/store/store-hooks';
 import {
   setCurrentStep as setCurrentStepSlice,
-  resetInventoryWizzard as resetInventoryWizzardSlice,
-  setInventoryWizzardAddress as setInventoryWizzardAddressSlice,
+  resetInventoryWizard as resetInventoryWizardSlice,
+  setInventoryWizardAddress as setInventoryWizardAddressSlice,
+  setInventoryWizardDetails as setInventoryWizardDetailsSlice,
 } from '@/store/inventory/inventorySlice';
 
 // ? Types
-import type { InventoryAddress } from '../types';
+import type { InventoryAddress, InventoryDetails } from '../types';
 
 export const useInventoryStore = () => {
-  const { currentStep, wizzardAddress } = useAppSelector(
+  const { currentStep, wizardAddress, wizardDetails } = useAppSelector(
     (state) => state.inventory
   );
   const dispatch = useAppDispatch();
 
-  const resetInventoryWizzard = () => {
-    dispatch(resetInventoryWizzardSlice());
+  const resetInventoryWizard = () => {
+    dispatch(resetInventoryWizardSlice());
   };
 
   const setNextStep = () => {
@@ -31,20 +32,26 @@ export const useInventoryStore = () => {
     dispatch(setCurrentStepSlice(step));
   };
 
-  const setInventoryWizzardAddress = (address: InventoryAddress) => {
-    dispatch(setInventoryWizzardAddressSlice(address));
+  const setInventoryWizardAddress = (address: InventoryAddress) => {
+    dispatch(setInventoryWizardAddressSlice(address));
+  };
+
+  const setInventoryWizardDetails = (details: InventoryDetails) => {
+    dispatch(setInventoryWizardDetailsSlice(details));
   };
 
   return {
     // ? Properties
     currentStep,
-    wizzardAddress,
+    wizardAddress,
+    wizardDetails,
 
     // ? Methods
-    resetInventoryWizzard,
+    resetInventoryWizard,
     setCurrentStep,
-    setInventoryWizzardAddress,
     setNextStep,
     setPreviousStep,
+    setInventoryWizardAddress,
+    setInventoryWizardDetails,
   };
 };

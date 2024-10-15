@@ -21,24 +21,24 @@ import { useInventoryStore } from '../../hooks';
 import { addressSchema } from '@/modules/global/schemas';
 
 export const Step1 = () => {
-  const { wizzardAddress, setNextStep, setInventoryWizzardAddress } =
+  const { wizardAddress, setNextStep, setInventoryWizardAddress } =
     useInventoryStore();
 
   const form = useForm<z.infer<typeof addressSchema>>({
     resolver: zodResolver(addressSchema),
     defaultValues: {
-      calleYNumero: wizzardAddress?.calleYNumero || '',
-      colonia: wizzardAddress?.colonia || '',
-      estado: wizzardAddress?.estado || '',
-      municipio: wizzardAddress?.municipio || '',
-      cp: wizzardAddress?.cp?.toString() || '',
-      googleMaps: wizzardAddress?.googleMaps || '',
+      calleYNumero: wizardAddress?.calleYNumero || '',
+      colonia: wizardAddress?.colonia || '',
+      estado: wizardAddress?.estado || '',
+      municipio: wizardAddress?.municipio || '',
+      cp: wizardAddress?.cp?.toString() || '',
+      googleMaps: wizardAddress?.googleMaps || '',
     },
   });
 
   const onSubmit = (formData: z.infer<typeof addressSchema>) => {
     const { cp, googleMaps, ...rest } = formData;
-    setInventoryWizzardAddress({
+    setInventoryWizardAddress({
       ...rest,
       cp: parseInt(cp),
       googleMaps: googleMaps || null,

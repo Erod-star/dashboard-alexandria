@@ -2,11 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // ? Types
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { InventoryAddress } from '@/modules/inventory/types';
+import type {
+  InventoryAddress,
+  InventoryDetails,
+} from '@/modules/inventory/types';
 
 export interface InventoryStoreState {
   currentStep: number;
-  wizzardAddress?: InventoryAddress;
+  wizardAddress?: InventoryAddress;
+  wizardDetails?: InventoryDetails;
 }
 
 const initialState: InventoryStoreState = {
@@ -22,24 +26,32 @@ export const inventorySlice = createSlice({
       state.currentStep = action.payload;
     },
 
-    resetInventoryWizzard: (state) => {
+    resetInventoryWizard: (state) => {
       state.currentStep = 0;
-      state.wizzardAddress = undefined;
+      state.wizardAddress = undefined;
     },
 
-    setInventoryWizzardAddress: (
+    setInventoryWizardAddress: (
       state,
       action: PayloadAction<InventoryAddress>
     ) => {
-      state.wizzardAddress = action.payload;
+      state.wizardAddress = action.payload;
+    },
+
+    setInventoryWizardDetails: (
+      state,
+      action: PayloadAction<InventoryDetails>
+    ) => {
+      state.wizardDetails = action.payload;
     },
   },
 });
 
 export const {
   setCurrentStep,
-  resetInventoryWizzard,
-  setInventoryWizzardAddress,
+  resetInventoryWizard,
+  setInventoryWizardAddress,
+  setInventoryWizardDetails,
 } = inventorySlice.actions;
 
 export default inventorySlice;

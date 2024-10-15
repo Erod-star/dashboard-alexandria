@@ -15,6 +15,9 @@ import {
   Separator,
 } from '@/components';
 
+// ? Hooks
+import { useInventoryStore } from '../../hooks';
+
 const formSchema = z.object({
   firstPayment: z
     .string()
@@ -26,12 +29,9 @@ const formSchema = z.object({
     .trim(),
 });
 
-interface Step3Props {
-  onNextStep: () => void;
-  onPreviousStep: () => void;
-}
+export const Step3 = () => {
+  const { setPreviousStep, setNextStep } = useInventoryStore();
 
-export const Step3 = ({ onNextStep, onPreviousStep }: Step3Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,7 +43,7 @@ export const Step3 = ({ onNextStep, onPreviousStep }: Step3Props) => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // TODO: Do something with the form values.
     console.log(values);
-    onNextStep();
+    setNextStep();
   }
   return (
     <Form {...form}>
@@ -117,7 +117,7 @@ export const Step3 = ({ onNextStep, onPreviousStep }: Step3Props) => {
         </div>
 
         <div className="absolute bottom-0 right-0 flex gap-5">
-          <Button type="button" onClick={onPreviousStep}>
+          <Button type="button" onClick={setPreviousStep}>
             Anterior
           </Button>
           <Button type="submit">Siguiente</Button>
